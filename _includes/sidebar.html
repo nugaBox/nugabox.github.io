@@ -5,7 +5,7 @@
 <div id="sidebar" class="d-flex flex-column align-items-end">
   <div class="profile-wrapper text-center">
     <div id="avatar">
-      <a href="{{ '/' | relative_url }}" alt="avatar" class="mx-auto">
+      <a href="{{ '/' | relative_url }}" alt="avatar">
         {% if site.avatar != empty and site.avatar %}
           {% capture avatar_url %}
             {% if site.avatar contains '://' %}
@@ -22,9 +22,11 @@
     </div>
 
     <div class="site-title mt-3">
-      <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
+<!--      <a href="{{ '/' | relative_url }}">{{ site.title }}</a>-->
+      <a href="{{ '/' | relative_url }}"><img src="/assets/img/common/banner_sub.png" alt="{{ site.title }}"></a>
     </div>
-    <div class="site-subtitle font-italic">{{ site.tagline }}</div>
+<!--    <div class="site-subtitle">{{ site.tagline }}</div>-->
+    <div class="site-subtitle"></div>
 
   </div><!-- .profile-wrapper -->
 
@@ -65,10 +67,12 @@
 
     {% for entry in site.data.contact %}
       {% capture url %}
-        {%- if entry.type == 'github' -%}
+        {%- if entry.type == 'home' -%}
+          https://nugabox.com/
+        {%- elsif entry.type == 'github' -%}
           https://github.com/{{ site.github.username }}
-        {%- elsif entry.type == 'twitter' -%}
-          https://twitter.com/{{ site.twitter.username }}
+        {%- elsif entry.type == 'rocketpunch' -%}
+          https://www.rocketpunch.com/@{{ site.rocketpunch.username }}
         {%- elsif entry.type == 'email' -%}
           {% assign email = site.social.email | split: '@' %}
           javascript:location.href = 'mailto:' + ['{{ email[0] }}','{{ email[1] }}'].join('@')

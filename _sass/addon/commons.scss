@@ -666,7 +666,7 @@ $sidebar-display: "sidebar-display";
 
   #avatar {
     > a {
-      display: block;
+      display: inline-block;
       width: 6rem;
       height: 6rem;
       border-radius: 50%;
@@ -706,6 +706,10 @@ $sidebar-display: "sidebar-display";
       font-size: 1.5rem;
       letter-spacing: 0.5px;
       color: rgba(134, 133, 133, 99%);
+
+      > img {
+        max-width: 150px;
+      }
     }
   }
 
@@ -1047,6 +1051,10 @@ $sidebar-display: "sidebar-display";
   text-overflow: ellipsis;
   word-break: keep-all;
   white-space: nowrap;
+
+  > img {
+    max-width: 130px;
+  }
 }
 
 #core-wrapper {
@@ -1584,11 +1592,11 @@ $sidebar-display: "sidebar-display";
       margin-bottom: 1rem;
 
       &.text-center {
-        text-align: left !important;
+        //text-align: left !important;
       }
 
       %profile-ml {
-        margin-left: 4.5rem;
+        //margin-left: 4.5rem;
       }
 
       #avatar {
@@ -1610,6 +1618,10 @@ $sidebar-display: "sidebar-display";
         a {
           font-size: 1.7rem;
           letter-spacing: 1px;
+
+          > img {
+            max-width: 200px;
+          }
         }
       }
 

@@ -10,7 +10,7 @@ baseurl: ''
 # The language of the webpage › http://www.lingoes.net/en/translator/langcode.htm
 # If it has the same name as one of the files in folder `_data/locales`, the layout language will also be changed,
 # otherwise, the layout language will use the default value of 'en'.
-lang: ko
+lang: ko-KR
 
 # Additional parameters for datetime localization, optional. › https://github.com/iamkun/dayjs/tree/dev/src/locale
 prefer_datetime_locale:
@@ -22,6 +22,7 @@ timezone: Asia/Seoul
 # ↓ --------------------------
 
 title: NUGALOG                          # the main title
+  banner: '/assets/img/common/banner.png'
 
 tagline: 누가의 개발로그   # it will display as the sub-title
 
@@ -32,10 +33,13 @@ description: >-                        # used by seo meta and the atom feed
 url: 'https://nugabox.github.io'
 
 github:
-  username: nugaBox             # change to your github username
+  username: nugaBox
 
-twitter:
-  username: codenuga__            # change to your twitter username
+instagram:
+  username: nugabox
+
+rocketpunch:
+  username: nugabox
 
 social:
   # Change to your full name.
@@ -44,8 +48,10 @@ social:
   email: root@nugabox.com             # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://twitter.com/codenuga__      # change to your twitter homepage
+    - https://nugabox.com
     - https://github.com/nugaBox       # change to your github homepage
+    - https://instagram.com/nugabox
+    - https://www.rocketpunch.com/@nugabox
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
     # - https://www.linkedin.com/in/username
