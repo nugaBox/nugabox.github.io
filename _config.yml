@@ -22,7 +22,6 @@ timezone: Asia/Seoul
 # ↓ --------------------------
 
 title: NUGALOG                          # the main title
-  banner: '/assets/img/common/banner.png'
 
 tagline: 누가의 개발로그   # it will display as the sub-title
 
