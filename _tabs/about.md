@@ -4,12 +4,12 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-![about](/assets/img/common/about.jpg){:style="width:40%; border-radius: 7px; padding: 0px;" }
+
+<img src="https://cdn.jsdelivr.net/gh/nugaBox/nugabox.github.io/assets/img/common/about.jpg" width="300px" align="left" style="border-radius: 7px; padding: 0px;">
 
 
 # Career
-- Comin Information System (2019 ~ )
-웹 풀스택 개발, 블록체인/DID 연구 개발, 서버 관리
+- [Comin Information System](https://www.comin.com) (2019 ~ ) : 웹 풀스택 개발, 블록체인/DID 연구 개발, 서버 관리
 
 # Education
 - 고려고등학교 졸업
