@@ -4,9 +4,9 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-
-<img src="https://cdn.jsdelivr.net/gh/nugaBox/nugabox.github.io/assets/img/common/about.jpg" width="300px" align="left" style="border-radius: 7px; padding: 0px;">
-
+<p style="display:inline-block;">
+  <img src="https://cdn.jsdelivr.net/gh/nugaBox/nugabox.github.io/assets/img/common/about.jpg" width="300px" align="left" style="display:block; border-radius: 7px; padding: 0px;">
+</p>
 
 # Career
 - [Comin Information System](https://www.comin.com) (2019 ~ ) : 웹 풀스택 개발, 블록체인/DID 연구 개발, 서버 관리
