@@ -11,7 +11,9 @@
 
 </div>
 
-<img src="https://cdn.jsdelivr.net/gh/nugaBox/nugabox.github.io/assets/img/common/ogimage.png" style="border:1px solid #606060; width:640px; border-radius: 7px; padding: 0px;">
+<p align="center">
+  <img src="https://cdn.jsdelivr.net/gh/nugaBox/nugabox.github.io/assets/img/common/ogimage.png" style="border:1px solid #606060; width:640px; border-radius: 7px; padding: 0px;">
+</p>
 
 ### Environments
 
