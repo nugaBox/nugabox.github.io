@@ -29,6 +29,6 @@ order: 4
 - [GitHub](https://github.com/nugaBox)
 - [Instagram](https://www.instagram.com/nugabox)
 - [cyworld](https://minihompy.cyworld.com/nugabox)
-- [Linkdin](https://www.linkedin.com/in/nugabox/)
+- [Linkedin](https://www.linkedin.com/in/nugabox/)
 - [RocketPunch](https://www.rocketpunch.com/@nugabox)
 - [Email](mailto:root@nugabox.com)
