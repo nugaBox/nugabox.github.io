@@ -1,8 +1,11 @@
 ---
 title: "MariaDB / MySQL 설치"
+date: 2022-05-03 00:00:51 +0900
 categories: [DBMS, MariaDB/MySQL]
 tags: [mariadb,mysql,db]
 ---
+
+![mariadb/mysql](/assets/img/post/2022-05-03/mysql.png){:style="border:1px solid #606060; border-radius: 7px; padding: 0px;" }
 
 ### 시험 환경
 > - OS : CentOS 6.x / 7.x
