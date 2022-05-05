@@ -1,5 +1,5 @@
 ---
-title: "Chripy로 GitHub Pages 만들기"
+title: "jekyll/Chripy로 GitHub Pages 만들기"
 date: 2022-05-01 01:11:11 +0900
 categories: [GitHub, GitHub-Pages]
 tags: [jekyll, chirpy, github-pages]
