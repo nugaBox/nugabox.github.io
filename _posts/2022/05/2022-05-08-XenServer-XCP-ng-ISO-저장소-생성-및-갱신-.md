@@ -1,6 +1,6 @@
 ---
 title: "XCP-ng ISO 저장소 생성 및 갱신 방법"
-date: 2022-05-08 11:12:00 +0900
+date: 2022-05-05 11:12:00 +0900
 categories: [OS, Linux]
 tags: [xcp-ng,xenserver]
 ---

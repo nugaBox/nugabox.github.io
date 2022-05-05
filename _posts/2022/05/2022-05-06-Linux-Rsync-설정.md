@@ -1,6 +1,6 @@
 ---
 title: "Linux Rsync 설정"
-date: 2022-05-06 03:44:40 +0900
+date: 2022-05-05 06:44:40 +0900
 categories: [OS, Linux]
 tags: [linux,rsync]
 ---
