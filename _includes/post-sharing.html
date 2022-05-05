@@ -4,7 +4,7 @@
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script>
   var imgUrl = '';
-  var imgOpengraph = 'https://nugabox.github.io/assets/img/common/ogimage.png';
+  var imgOpengraph = 'https://nugabox.github.io/assets/img/common/metaimage.png';
   var $imgs = $('.post-content img');
   var imgUrlCnt = $imgs.length;
   if($imgs.length > 0)
@@ -30,8 +30,8 @@
   <span class="share-icons">
     {% capture title %}{{ page.title }} - {{ site.title }}{% endcapture %}
     {% assign url = page.url | absolute_url %}
-        <a href="javascript:sendLink()" data-toggle="tooltip" data-placement="top"
-           title="카카오톡 공유하기" target="_blank" rel="noopener" aria-label="카카오톡 공유하기">
+        <a href="javascript:sendLink();" data-toggle="tooltip" data-placement="top"
+           title="카카오톡 공유하기" rel="noopener" aria-label="카카오톡 공유하기">
           <i class="fa-fw fas fa-comment"></i>
         </a>
     {% for share in site.data.share.platforms %}
