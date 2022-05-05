@@ -18,7 +18,7 @@
       templateId: 76113,
       templateArgs: {
         title: "{{ page.title }}",
-        description: "{{ page.excerpt }}",
+        description: "{{ page.excerpt | strip_html | strip_newlines }}",
         url : "{{ page.url }}",
         imgurl: imgUrl
       },
