@@ -3,7 +3,6 @@
 -->
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script>
-  // 썸네일 이미지 설정 (있으면 첫번째 이미지, 없으면 og이미지)
   var imgUrl = '';
   var imgOpengraph = 'https://nugabox.github.io/assets/img/common/ogimage.png';
   var $imgs = $('.post-content img');
@@ -13,7 +12,6 @@
   else
     imgUrl = imgOpengraph;
 
-  // 카카오링크 메시지 설정
   Kakao.init("6227428dbe368051c80ba49a2fd0a5a2");
   function sendLink() {
     Kakao.Link.sendCustom({
