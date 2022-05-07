@@ -3,10 +3,12 @@ title: About
 icon: fas fa-info-circle
 order: 4
 ---
-## Nuga Jang. Be Classy Developer
+## Nuga Jang.
+
+> Be Classy Developer
 
 <p style="display:inline-block;">
-  <img src="https://cdn.jsdelivr.net/gh/nugaBox/nugabox.github.io/assets/img/common/about.jpg" width="300px" align="left" style="display:block; border-radius: 7px; padding: 0px;">
+  <img src="https://cdn.jsdelivr.net/gh/nugaBox/nugabox.github.io/assets/img/common/about.jpg" width="300px" align="left" style="display:block; border-radius: 10px; padding: 0px;">
 </p>
 
 - `INTJ`
@@ -21,12 +23,15 @@ order: 4
 - 고려고등학교 졸업
 - 경남대학교 국어교육과 졸업 / 문학사
 - 조선이공대학교 컴퓨터보안과 졸업 / 공업전문학사
-- 전남대학교 대학원 전자컴퓨터공학과 재학 / 석사과정
+- 전남대학교 대학원 전자컴퓨터공학과 석사과정 재학
 
 # Prize
 - 전국 컴퓨터그래픽디자인경진대회 은상 / 교육인적자원부
 - 빛가람에너지밸리 소프트웨어 작품 경진대회 우수상 / (주)한전KDN
 - 광주권 LINC+ 대학연합 청년창업경진대회 최우수상 / 광주광역시
+
+# Portfolio
+- [portfolio.nugabox.io](https://portfolio.nugabox.io)
 
 # Social Links
 - [NUGABOX](https://nugabox.com)
