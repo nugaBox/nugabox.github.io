@@ -51,12 +51,12 @@ interact
 - 맨 마지막 명령어인 interact가 사용자에게 권한을 반환하는 명령어이므로 Crontab에서는 오류가 발생합니다
 - 맨 마지막 interact 대신에 expect eof를 추가하여 스크립트를 작성합니다.
 ```bash
-    #!/usr/bin/expect
-    set timeout -1
-    log_user 0
-    spawn rsync -avPz -l -t -e ssh 계정명@원본호스트주소:원본경로/ 목적지경로
-    expect "password: "
-    send "계정패스워드"
-    log_user 1
-    expect eof
+#!/usr/bin/expect
+set timeout -1
+log_user 0
+spawn rsync -avPz -l -t -e ssh 계정명@원본호스트주소:원본경로/ 목적지경로
+expect "password: "
+send "계정패스워드"
+log_user 1
+expect eof
 ```
