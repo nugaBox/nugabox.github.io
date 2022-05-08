@@ -44,6 +44,16 @@ brew install --cask iterm2
 ## zsh 설정
 
 ```bash
+vim ~/.zshrc
+  # 테마 변경 (agnoster테마는 현재 디렉토리에서 Git의 상태를 알려줌)
+  ZSH_THEME="agnoster"
+  # 맨 하단에 추가 (맥 hostname 가리기)
+  prompt_context() {
+    if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
+      prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
+    fi
+  }
+source ~/.zshrc
 ```
 
 ## D2코딩 폰트 설치
