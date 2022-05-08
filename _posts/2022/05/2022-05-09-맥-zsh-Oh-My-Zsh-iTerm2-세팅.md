@@ -50,7 +50,7 @@ vim ~/.zshrc
   # 맨 하단에 추가 (맥 hostname 가리기)
   prompt_context() {
     if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-      prompt_segment black default "%(!.%{%{yellow}%}.)$USER"
+      prompt_segment black default \"%(!.%{%F{yellow}%}.)$USER\"
     fi
   }
 source ~/.zshrc
