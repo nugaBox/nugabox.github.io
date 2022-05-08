@@ -54,14 +54,14 @@ source ~/.zshrc
 
 아래 파일을 다운로드 받은 후 macOS에 폰트를 설치합니다.
 
-- [D2Coding-Ver1.3.2-20180524-all.ttc](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/82c10f3d-4b47-4d5c-a3d3-7240b4fabf7b/D2Coding-Ver1.3.2-20180524-all.ttc)
+- [D2Coding-Ver1.3.2-20180524-all.ttc](/upload/post/D2Coding-Ver1.3.2-20180524-all.ttc)
 
 
 ## iterm2 테마 설치
 1. iterm에서 `Cmd + ,`를 누르면 설정 화면 → Profile
 2. Text에서 D2코딩 폰트를 적용합니다.
 3. 테마 파일 다운로드 후 압축 해제합니다.
-   - [schemes.zip](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/697c4d68-3d01-4060-993f-64d370c0b008/schemes.zip)
+   - [schemes.zip](/upload/post/schemes.zip)
 4. Colors → Color Presets → Import → 압축 해제한 테마 폴더를 추가합니다.
 5. 테마를 선택하여 적용합니다.
 
