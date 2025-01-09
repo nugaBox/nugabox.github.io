@@ -20,3 +20,6 @@ gem "wdm", "~> 0.1.1", :install_if => Gem.win_platform?
 
 # Jekyll <= 4.2.0 compatibility with Ruby 3.0
 gem "webrick", "~> 1.7"
+
+# Ruby 3.5.0부터 기본 gems에서 제외될 예정이므로 명시적으로 추가
+gem 'logger'
