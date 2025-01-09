@@ -23,3 +23,6 @@ gem "webrick", "~> 1.7"
 
 # Ruby 3.5.0부터 기본 gems에서 제외될 예정이므로 명시적으로 추가
 gem 'logger'
+
+# Ruby 3.4.0+ 호환성을 위한 gems
+gem 'csv'
