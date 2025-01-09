@@ -130,6 +130,8 @@ kramdown:
   syntax_highlighter: rouge
   hard_wrap: false
   smart_quotes: ["apos", "apos", "quot", "quot"]
+  entity_output: as_char
+  toc_levels: [1, 2, 3]
   syntax_highlighter_opts:
     css_class: highlight
     span:
