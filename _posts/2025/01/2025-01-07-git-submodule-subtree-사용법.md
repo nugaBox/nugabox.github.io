@@ -1,4 +1,5 @@
 ---
+layout: post
 title: "git 서브모듈과 서브트리 사용법"
 date: 2025-01-07 15:37:00 +0900
 categories: [Git]

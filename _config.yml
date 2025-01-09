@@ -128,9 +128,10 @@ kramdown:
   parse_block_html: true
   auto_ids: true
   syntax_highlighter: rouge
-  syntax_highlighter_opts: # Rouge Options › https://github.com/jneen/rouge#full-options
+  hard_wrap: false
+  smart_quotes: ["apos", "apos", "quot", "quot"]
+  syntax_highlighter_opts:
     css_class: highlight
-    # default_lang: console
     span:
       line_numbers: false
     block:
