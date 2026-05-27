@@ -9,7 +9,8 @@
 /** 테마 세팅 **/
 html {
     --bg-color: #fdfdfd;
-    --profile-bg: #F4F0EC;
+    /* --profile-bg: #F4F0EC; */
+    --profile-image: url(/images/profile/nuga_2026_char2.jpeg);
     --text-color: #676a6c;
     --link-color: #000;
     --banner-url: url(/images/banner/banner_2021.png);
@@ -24,7 +25,8 @@ html {
 }
 html.dark {
     --bg-color: #24282D;
-    --profile-bg: #1a1b1f;
+    /* --profile-bg: #1a1b1f; */
+    --profile-image: url(/images/profile/nuga_2026_char2_dark.png);
     --text-color: #AFBAC6;
     --link-color: #bbb;
     --banner-url: url(/images/banner/banner_2021_light.png);
@@ -166,7 +168,8 @@ html.dark .gradient-overlay {
 }
 
 .banner_img {width:180px; height:40px; background-image: var(--banner-url); background-size: cover; margin: 0 auto }
-.profile { position: relative; background-color: var(--profile-bg); background-image: url(/images/profile/nuga_memoji_2024_trans.png); background-size: cover; width: 200px; height: 200px; border-radius: 25px; margin: auto; margin-top: 30px; margin-bottom: 30px; box-shadow: 0 3.4px 2.7px rgba(0, 0, 0, 0.037), 0 8.7px 6.9px rgba(0, 0, 0, 0.053), 0 17.7px 14.2px rgba(0, 0, 0, 0.067), 0 16.5px 9.2px rgba(0, 0, 0, 0.083), 0 40px 20px rgba(0, 0, 0, 0.12); }
+/* .profile { position: relative; background-color: var(--profile-bg); background-image: url(/images/profile/nuga_memoji_2024_trans.png); background-size: cover; ... } */
+.profile { position: relative; background-image: var(--profile-image); background-size: cover; background-repeat: no-repeat; background-position: center; width: 200px; height: 200px; border-radius: 25px; margin: auto; margin-top: 30px; margin-bottom: 30px; box-shadow: 0 3.4px 2.7px rgba(0, 0, 0, 0.037), 0 8.7px 6.9px rgba(0, 0, 0, 0.053), 0 17.7px 14.2px rgba(0, 0, 0, 0.067), 0 16.5px 9.2px rgba(0, 0, 0, 0.083), 0 40px 20px rgba(0, 0, 0, 0.12); }
 .profile .profile-cover {  position: absolute; height: 100%; width: 100%; z-index:999; }
 .profile .content{ position: absolute; top:75%; left:10%; width:230px; display:flex; }
 .profile .content span { font-size:24px; font-weight: 600; color: white; z-index: 3; text-align: center; text-shadow: 0 0 6px grey; }

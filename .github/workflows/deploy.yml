@@ -1,0 +1,149 @@
+name: Deploy home
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: home-deploy
+  cancel-in-progress: false
+
+env:
+  DEPLOY_DIR: /volume1/Develop/Sites/home
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, linux, x64, nugacloud]
+
+    steps:
+      - name: Deploy on Production Server
+        id: deploy
+        run: |
+          set -euo pipefail
+
+          DI="/tmp/home-deploy-${GITHUB_RUN_ID}.txt"
+          echo "DEPLOY_INFO_FILE=$DI" >> "$GITHUB_ENV"
+
+          DEPLOY_DIR="${{ env.DEPLOY_DIR }}"
+
+          step_time() {
+            echo "[timing] $1 — $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          }
+
+          cd "$DEPLOY_DIR"
+
+          step_time "git sync start"
+          git fetch origin main
+          git reset --hard origin/main
+          CUR="$(git rev-parse HEAD)"
+          step_time "git sync done"
+
+          {
+            echo "Timestamp (UTC): $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+            echo "Deploy dir: $DEPLOY_DIR"
+            echo "HEAD: $CUR"
+            echo ""
+            git log -1 --oneline
+          } > "$DI"
+
+      - name: Send Success Notification
+        if: success()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: "7758712361"
+          GH_REPO: ${{ github.repository }}
+          GH_REF: ${{ github.ref_name }}
+          GH_SHA: ${{ github.sha }}
+          DEPLOY_INFO_FILE: ${{ env.DEPLOY_INFO_FILE }}
+        run: |
+          set -e
+          if [ -z "${TELEGRAM_BOT_TOKEN:-}" ]; then echo "TELEGRAM_BOT_TOKEN 없음 — 텔레그램 생략"; exit 0; fi
+          INFO=""
+          if [ -n "${DEPLOY_INFO_FILE:-}" ] && [ -f "$DEPLOY_INFO_FILE" ]; then INFO=$(cat "$DEPLOY_INFO_FILE"); fi
+          export INFO GH_REPO GH_REF GH_SHA TELEGRAM_BOT_TOKEN TELEGRAM_CHAT_ID
+          PYBIN="$(command -v python3 2>/dev/null || command -v python 2>/dev/null || true)"
+          if [ -z "$PYBIN" ]; then echo "python 없음 — 텔레그램 생략"; exit 0; fi
+          "$PYBIN" << 'PY'
+          import json, os, urllib.request
+
+          def send(text: str) -> None:
+              token = os.environ["TELEGRAM_BOT_TOKEN"]
+              chat = os.environ["TELEGRAM_CHAT_ID"]
+              url = f"https://api.telegram.org/bot{token}/sendMessage"
+              body = {"chat_id": chat, "text": text}
+              req = urllib.request.Request(
+                  url,
+                  data=json.dumps(body, ensure_ascii=False).encode("utf-8"),
+                  headers={"Content-Type": "application/json"},
+                  method="POST",
+              )
+              with urllib.request.urlopen(req, timeout=45) as r:
+                  r.read()
+
+          info = os.environ.get("INFO", "").strip()
+          if len(info) > 3500:
+              info = info[:3500] + "\n…(이하 생략)"
+          lines = [
+              "✅ 배포 성공 (home)",
+              "",
+              f"저장소: {os.environ['GH_REPO']}",
+              f"브랜치: {os.environ['GH_REF']}",
+              f"커밋: {os.environ['GH_SHA']}",
+              "",
+              "배포 정보:",
+              info if info else "(없음)",
+          ]
+          send("\n".join(lines))
+          print("telegram: ok")
+          PY
+
+      - name: Send Failure Notification
+        if: failure()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: "7758712361"
+          GH_REPO: ${{ github.repository }}
+          GH_REF: ${{ github.ref_name }}
+          GH_SHA: ${{ github.sha }}
+          DEPLOY_INFO_FILE: ${{ env.DEPLOY_INFO_FILE }}
+        run: |
+          set -e
+          if [ -z "${TELEGRAM_BOT_TOKEN:-}" ]; then echo "TELEGRAM_BOT_TOKEN 없음 — 텔레그램 생략"; exit 0; fi
+          INFO=""
+          if [ -n "${DEPLOY_INFO_FILE:-}" ] && [ -f "$DEPLOY_INFO_FILE" ]; then INFO=$(cat "$DEPLOY_INFO_FILE"); fi
+          export INFO GH_REPO GH_REF GH_SHA TELEGRAM_BOT_TOKEN TELEGRAM_CHAT_ID
+          PYBIN="$(command -v python3 2>/dev/null || command -v python 2>/dev/null || true)"
+          if [ -z "$PYBIN" ]; then echo "python 없음 — 텔레그램 생략"; exit 0; fi
+          "$PYBIN" << 'PY'
+          import json, os, urllib.request
+
+          def send(text: str) -> None:
+              token = os.environ["TELEGRAM_BOT_TOKEN"]
+              chat = os.environ["TELEGRAM_CHAT_ID"]
+              url = f"https://api.telegram.org/bot{token}/sendMessage"
+              body = {"chat_id": chat, "text": text}
+              req = urllib.request.Request(
+                  url,
+                  data=json.dumps(body, ensure_ascii=False).encode("utf-8"),
+                  headers={"Content-Type": "application/json"},
+                  method="POST",
+              )
+              with urllib.request.urlopen(req, timeout=45) as r:
+                  r.read()
+
+          info = os.environ.get("INFO", "").strip()
+          if len(info) > 3500:
+              info = info[:3500] + "\n…(이하 생략)"
+          lines = [
+              "❌ 배포 실패 (home)",
+              "",
+              f"저장소: {os.environ['GH_REPO']}",
+              f"브랜치: {os.environ['GH_REF']}",
+              f"커밋: {os.environ['GH_SHA']}",
+          ]
+          if info:
+              lines += ["", "마지막으로 수집된 배포 정보:", info]
+          send("\n".join(lines))
+          print("telegram: failure notice sent")
+          PY
