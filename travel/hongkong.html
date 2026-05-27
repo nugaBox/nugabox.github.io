@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>홍콩 & 마카오 3박 4일 최적 동선 지도</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+        #map { height: calc(100vh - 180px); min-height: 500px; border-radius: 12px; z-index: 1; }
+        .custom-popup .leaflet-popup-content-wrapper { border-radius: 8px; padding: 4px; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+
+    <header class="bg-white shadow-sm border-b border-gray-200 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                    🇭🇰 🇲🇴 홍콩·마카오 여행 동선 시각화
+                </h1>
+                <p class="text-sm text-gray-500 mt-1">이른 새벽 도착 및 숙소 위치를 고려한 최적 경로 안내</p>
+            </div>
+            <div class="flex flex-wrap gap-2" id="tab-container">
+                <button onclick="showDay('all')" id="btn-all" class="tab-btn px-4 py-2 text-sm font-medium rounded-lg transition bg-blue-600 text-white shadow">전체 동선</button>
+                <button onclick="showDay('day1')" id="btn-day1" class="tab-btn px-4 py-2 text-sm font-medium rounded-lg transition bg-gray-100 text-gray-700 hover:bg-gray-200">1일차 (홍콩섬)</button>
+                <button onclick="showDay('day2')" id="btn-day2" class="tab-btn px-4 py-2 text-sm font-medium rounded-lg transition bg-gray-100 text-gray-700 hover:bg-gray-200">2일차 (디즈니)</button>
+                <button onclick="showDay('day3')" id="btn-day3" class="tab-btn px-4 py-2 text-sm font-medium rounded-lg transition bg-gray-100 text-gray-700 hover:bg-gray-200">3일차 (마카오 이동)</button>
+                <button onclick="showDay('day4')" id="btn-day4" class="tab-btn px-4 py-2 text-sm font-medium rounded-lg transition bg-gray-100 text-gray-700 hover:bg-gray-200">4일차 (귀국)</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 flex flex-col max-h-[calc(100vh-180px)] overflow-y-auto">
+            <h2 class="text-lg font-bold text-gray-900 mb-4 border-b pb-2">📍 방문 순서 정보</h2>
+            <div id="itinerary-list" class="space-y-4">
+                </div>
+        </div>
+
+        <div class="lg:col-span-2 relative">
+            <div id="map" class="shadow-md border border-gray-200"></div>
+            <div class="absolute bottom-4 left-4 bg-white px-3 py-2 rounded-lg shadow-md border border-gray-200 text-xs space-y-1.5" style="z-index: 1000;">
+                <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-blue-500 inline-block"></span> 1일차 (블루)</div>
+                <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-green-500 inline-block"></span> 2일차 (그린)</div>
+                <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span> 3일차 (오렌지)</div>
+                <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span> 4일차 (레드)</div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // 여행 일정 데이터 정의 (좌표값 포함)
+        const itinerary = {
+            day1: {
+                color: '#3B82F6',
+                name: '첫째날: 홍콩섬 도심 탐방',
+                points: [
+                    { name: '홍콩 국제공항 (05:25)', coor: [22.3080, 113.9185], desc: '새벽 입국 후 AEL(공항철도) 이용하여 시내 진입' },
+                    { name: '더 하버뷰 호텔 (완차이)', coor: [22.2801, 114.1743], desc: '얼리 체크인 전 프론트에 캐리어 수하물 우선 보관' },
+                    { name: '베이크하우스 완차이점', coor: [22.2767, 114.1718], desc: '오전 08:00 오픈런하여 갓 구운 에그타르트 수령' },
+                    { name: '피크트램 & 빅토리아 피크', coor: [22.2755, 114.1442], desc: '대기줄이 가장 없는 이른 오전 시간대에 트램 탑승' },
+                    { name: '미드레벨 에스컬레이터 & 소호', coor: [22.2835, 114.1534], desc: '영화 <중경삼림> 촬영지 탐방 및 소호 란퐁유엔 밀크티' },
+                    { name: '더 하버뷰 호텔 (휴식)', coor: [22.2801, 114.1743], desc: '오후 숙소 정식 체크인 후 잠깐의 휴식 취하기' }
+                ]
+            },
+            day2: {
+                color: '#10B981',
+                name: '둘째날: 홍콩섬 투어 & 디즈니랜드',
+                points: [
+                    { name: '더 하버뷰 호텔', coor: [22.2801, 114.1743], desc: '오전 숙소에서 출발' },
+                    { name: '센트럴 스타페리 선착장', coor: [22.2871, 114.1602], desc: '빅버스 투어(레드 라인) 탑승하여 홍콩섬 전역 조망' },
+                    { name: '홍콩 디즈니랜드', coor: [22.3130, 114.0413], desc: '오후 어트랙션 탑승 및 야간 전설적인 불꽃놀이 직관' },
+                    { name: '침사추이 빅토리아 하버', coor: [22.2930, 114.1740], desc: '늦은 저녁 도착하여 해변 산책로 야경 감상 및 밤샘 차찬텡' }
+                ]
+            },
+            day3: {
+                color: '#F59E0B',
+                name: '셋째날: 침사추이 쇼핑 -> 마카오 이동',
+                points: [
+                    { name: '스타의 거리 (침사추이)', coor: [22.2930, 114.1740], desc: '장국영 등 홍콩 스타들의 핸드프린팅 산책로' },
+                    { name: '캔톤로드 & 하버시티', coor: [22.2965, 114.1685], desc: '영화 <첨밀밀> 명장면 도로 구경 후 대형 쇼핑몰 투어' },
+                    { name: '침사추이 차이나 페리 터미널', coor: [22.3005, 114.1664], desc: '마카오 타이파행 페리 탑승 (약 1시간 소요)' },
+                    { name: '마카오 타이파 페리 터미널', coor: [22.1632, 113.5647], desc: '마카오 입국 및 호텔 무료 셔틀버스 탑승' },
+                    { name: '더 파리지앵 마카오', coor: [22.1441, 113.5602], desc: '호텔 체크인 후 실내 쇼핑몰 구경 및 에펠탑 야경 분수쇼' }
+                ]
+            },
+            day4: {
+                color: '#EF4444',
+                name: '넷째날: 마카오 역사지구 -> 공항 복귀',
+                points: [
+                    { name: '더 파리지앵 마카오', coor: [22.1441, 113.5602], desc: '체크아웃 후 짐 보관, 오전 코타이 스트립 산책' },
+                    { name: '세나도 광장', coor: [22.1937, 113.5397], desc: '마카오 반도로 이동하여 포르투갈풍 물결무늬 광장 관광' },
+                    { name: '성 바울 성당의 유적', coor: [22.1974, 113.5409], desc: '마카오 최고의 상징물인 성당 전면부 유적 인증샷' },
+                    { name: '마카오 타이파 페리 터미널', coor: [22.1632, 113.5647], desc: '홍콩 국제공항으로 바로 가는 직항 페리(또는 강주아오 대교 버스) 탑승' },
+                    { name: '홍콩 국제공항 (21:00 출발)', coor: [22.3080, 113.9185], desc: '공항 면세점 구경 및 한국행 비행기 탑승' }
+                ]
+            }
+        };
+
+        // 지도 초기화 (홍콩과 마카오를 모두 아우르는 중심점)
+        const map = L.map('map').setView([22.25, 114.0], 10);
+
+        // OpenStreetMap 타일 레이어 추가
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        let activeLayers = [];
+
+        // 화면에 마커 및 동선 선 그리기 함수
+        function showDay(dayKey) {
+            // 기존 요소 지우기
+            activeLayers.forEach(layer => map.removeLayer(layer));
+            activeLayers = [];
+
+            const allBounds = [];
+
+            const drawRoute = (key) => {
+                const dayData = itinerary[key];
+                const coords = [];
+
+                dayData.points.forEach((pt, index) => {
+                    coords.push(pt.coor);
+                    allBounds.push(pt.coor);
+
+                    // 써클 마커 생성
+                    const marker = L.circleMarker(pt.coor, {
+                        radius: 9,
+                        fillColor: dayData.color,
+                        color: '#ffffff',
+                        weight: 2,
+                        opacity: 1,
+                        fillOpacity: 0.9
+                    }).addTo(map);
+
+                    // 팝업 설정
+                    marker.bindPopup(`
+                        <div class="custom-popup text-xs p-1">
+                            <strong class="text-sm block mb-1 text-gray-900" style="color:${dayData.color}">${index + 1}. ${pt.name}</strong>
+                            <p class="text-gray-600 font-normal leading-relaxed">${pt.desc}</p>
+                        </div>
+                    `);
+                    activeLayers.push(marker);
+                });
+
+                // 동선 연결 선(Polyline) 생성
+                const isCrossSea = key === 'day3' || key === 'day4';
+                const polyline = L.polyline(coords, {
+                    color: dayData.color,
+                    weight: 4,
+                    opacity: 0.8,
+                    dashArray: isCrossSea ? '6, 8' : null // 바다를 건너는 페리 동선은 점선으로 표시
+                }).addTo(map);
+                activeLayers.push(polyline);
+            };
+
+            // 선택된 데이터에 따라 실행
+            if (dayKey === 'all') {
+                Object.keys(itinerary).forEach(key => drawRoute(key));
+            } else {
+                drawRoute(dayKey);
+            }
+
+            // 마커들이 한눈에 보이도록 지도 뷰 조정
+            if (allBounds.length > 0) {
+                map.fitBounds(allBounds, { padding: [50, 50], maxZoom: 14 });
+            }
+
+            // 탭 버튼 스타일 업데이트
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'text-white', 'shadow');
+                btn.classList.add('bg-gray-100', 'text-gray-700');
+            });
+            const activeBtn = document.getElementById(`btn-${dayKey}`);
+            activeBtn.classList.remove('bg-gray-100', 'text-gray-700');
+            activeBtn.classList.add('bg-blue-600', 'text-white', 'shadow');
+
+            // 좌측 사이드바 텍스트 리스트 업데이트
+            renderSidebarList(dayKey);
+        }
+
+        // 좌측 사이드바 텍스트 리스트 빌드 함수
+        function renderSidebarList(dayKey) {
+            const listContainer = document.getElementById('itinerary-list');
+            listContainer.innerHTML = '';
+
+            const appendDayItems = (key) => {
+                const dayData = itinerary[key];
+                const wrapper = document.createElement('div');
+                wrapper.className = 'mb-4';
+                wrapper.innerHTML = `<h3 class="font-bold text-sm mb-2" style="color:${dayData.color}">${dayData.name}</h3>`;
+
+                const ol = document.createElement('ol');
+                ol.className = 'border-l-2 border-gray-100 ml-2 pl-4 space-y-4 relative';
+
+                dayData.points.forEach((pt, idx) => {
+                    const li = document.createElement('li');
+                    li.className = 'relative group cursor-pointer';
+                    li.onclick = () => {
+                        // 클릭 시 해당 마커 위치로 이동 및 팝업 오픈
+                        map.setView(pt.coor, 14);
+                        activeLayers.forEach(layer => {
+                            if (layer instanceof L.CircleMarker && layer.getLatLng().lat === pt.coor[0] && layer.getLatLng().lng === pt.coor[1]) {
+                                layer.openPopup();
+                            }
+                        });
+                    };
+                    li.innerHTML = `
+                        <span class="absolute -left-6 top-1 w-3 h-3 rounded-full border-2 border-white transition group-hover:scale-125" style="background-color:${dayData.color}"></span>
+                        <div class="font-semibold text-sm text-gray-800 group-hover:text-blue-600">${idx + 1}. ${pt.name}</div>
+                        <div class="text-xs text-gray-400 mt-0.5">${pt.desc}</div>
+                    `;
+                    ol.appendChild(li);
+                });
+
+                wrapper.appendChild(ol);
+                listContainer.appendChild(wrapper);
+            };
+
+            if (dayKey === 'all') {
+                Object.keys(itinerary).forEach(key => appendDayItems(key));
+            } else {
+                appendDayItems(dayKey);
+            }
+        }
+
+        // 첫 실행 시 전체 화면 보여주기
+        window.onload = () => {
+            showDay('all');
+        };
+    </script>
+</body>
+</html>
