@@ -119,7 +119,8 @@ body {
   margin: auto;
 }
 
-@media (max-width: 768px) {
+/* Below this width, keep layout width and allow horizontal scrolling */
+@media (max-width: 920px) {
   html,
   body.cyworld-page {
     overflow-x: auto;
@@ -143,4 +144,21 @@ body {
   .outer-box {
     float: left;
   }
+}
+
+.miniroom-viewport {
+  width: 570px;
+  height: 300px;
+  border-radius: 6px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.miniroom-viewport.is-dragging {
+  cursor: grabbing;
 }
