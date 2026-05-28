@@ -13,17 +13,54 @@ env:
   DEPLOY_DIR: /volume1/Develop/Sites/home
 
 jobs:
+  build:
+    runs-on: [self-hosted, linux, x64, nugacloud]
+    outputs:
+      head_sha: ${{ steps.prep.outputs.head_sha }}
+      deploy_info_file: ${{ steps.prep.outputs.deploy_info_file }}
+
+    steps:
+      - name: Prepare deploy info
+        id: prep
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          DI="/tmp/home-deploy-${GITHUB_RUN_ID}.txt"
+          echo "deploy_info_file=$DI" >> "$GITHUB_OUTPUT"
+          echo "head_sha=${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
+
+          {
+            echo "Timestamp (UTC): $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+            echo "Repo: ${GITHUB_REPOSITORY}"
+            echo "Ref: ${GITHUB_REF_NAME}"
+            echo "SHA: ${GITHUB_SHA}"
+            echo "Deploy dir: ${{ env.DEPLOY_DIR }}"
+          } > "$DI"
+
+  report-build-status:
+    needs: build
+    runs-on: [self-hosted, linux, x64, nugacloud]
+
+    steps:
+      - name: Build status
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "build ok"
+
   deploy:
+    needs: build
     runs-on: [self-hosted, linux, x64, nugacloud]
 
     steps:
       - name: Deploy on Production Server
         id: deploy
+        shell: bash
+        env:
+          DEPLOY_INFO_FILE: ${{ needs.build.outputs.deploy_info_file }}
         run: |
           set -euo pipefail
-
-          DI="/tmp/home-deploy-${GITHUB_RUN_ID}.txt"
-          echo "DEPLOY_INFO_FILE=$DI" >> "$GITHUB_ENV"
 
           DEPLOY_DIR="${{ env.DEPLOY_DIR }}"
 
@@ -40,12 +77,11 @@ jobs:
           step_time "git sync done"
 
           {
-            echo "Timestamp (UTC): $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
-            echo "Deploy dir: $DEPLOY_DIR"
+            echo ""
             echo "HEAD: $CUR"
             echo ""
             git log -1 --oneline
-          } > "$DI"
+          } >> "$DEPLOY_INFO_FILE"
 
       - name: Send Success Notification
         if: success()
@@ -55,7 +91,7 @@ jobs:
           GH_REPO: ${{ github.repository }}
           GH_REF: ${{ github.ref_name }}
           GH_SHA: ${{ github.sha }}
-          DEPLOY_INFO_FILE: ${{ env.DEPLOY_INFO_FILE }}
+          DEPLOY_INFO_FILE: ${{ needs.build.outputs.deploy_info_file }}
         run: |
           set -e
           if [ -z "${TELEGRAM_BOT_TOKEN:-}" ]; then echo "TELEGRAM_BOT_TOKEN 없음 — 텔레그램 생략"; exit 0; fi
@@ -106,7 +142,7 @@ jobs:
           GH_REPO: ${{ github.repository }}
           GH_REF: ${{ github.ref_name }}
           GH_SHA: ${{ github.sha }}
-          DEPLOY_INFO_FILE: ${{ env.DEPLOY_INFO_FILE }}
+          DEPLOY_INFO_FILE: ${{ needs.build.outputs.deploy_info_file }}
         run: |
           set -e
           if [ -z "${TELEGRAM_BOT_TOKEN:-}" ]; then echo "TELEGRAM_BOT_TOKEN 없음 — 텔레그램 생략"; exit 0; fi
