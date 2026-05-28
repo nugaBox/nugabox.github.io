@@ -10,10 +10,10 @@
 html {
     --bg-color: #fdfdfd;
     /* --profile-bg: #F4F0EC; */
-    --profile-image: url(/images/profile/nuga_2026_char2.jpeg);
+    --profile-image: url(/assets/images/profile/nuga_2026_char2.jpeg);
     --text-color: #676a6c;
     --link-color: #000;
-    --banner-url: url(/images/banner/banner_2021.png);
+    --banner-url: url(/assets/images/banner/banner_2021.png);
     --app-box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25), -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
     --welcome-bar-shadow: 0 0 5px #aaaaaa;
     --sns-link: #c5c5c5;
@@ -26,10 +26,10 @@ html {
 html.dark {
     --bg-color: #24282D;
     /* --profile-bg: #1a1b1f; */
-    --profile-image: url(/images/profile/nuga_2026_char2_dark.png);
+    --profile-image: url(/assets/images/profile/nuga_2026_char2_dark.png);
     --text-color: #AFBAC6;
     --link-color: #bbb;
-    --banner-url: url(/images/banner/banner_2021_light.png);
+    --banner-url: url(/assets/images/banner/banner_2021_light.png);
     --app-box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25), -8px -8px 12px 0 rgba(0, 0, 0, 0.3);
     --welcome-bar-shadow: 0 0 5px #464646;
     --sns-link: #626367;
@@ -168,7 +168,7 @@ html.dark .gradient-overlay {
 }
 
 .banner_img {width:180px; height:40px; background-image: var(--banner-url); background-size: cover; margin: 0 auto }
-/* .profile { position: relative; background-color: var(--profile-bg); background-image: url(/images/profile/nuga_memoji_2024_trans.png); background-size: cover; ... } */
+/* .profile { position: relative; background-color: var(--profile-bg); background-image: url(/assets/images/profile/nuga_memoji_2024_trans.png); background-size: cover; ... } */
 .profile { position: relative; background-image: var(--profile-image); background-size: cover; background-repeat: no-repeat; background-position: center; width: 200px; height: 200px; border-radius: 25px; margin: auto; margin-top: 30px; margin-bottom: 30px; box-shadow: 0 3.4px 2.7px rgba(0, 0, 0, 0.037), 0 8.7px 6.9px rgba(0, 0, 0, 0.053), 0 17.7px 14.2px rgba(0, 0, 0, 0.067), 0 16.5px 9.2px rgba(0, 0, 0, 0.083), 0 40px 20px rgba(0, 0, 0, 0.12); }
 .profile .profile-cover {  position: absolute; height: 100%; width: 100%; z-index:999; }
 .profile .content{ position: absolute; top:75%; left:10%; width:230px; display:flex; }
@@ -181,49 +181,51 @@ html.dark .gradient-overlay {
 .app-line .app-icons .icon { display: block; height: 65px; width: 65px; margin: 0 10px; -webkit-background-composite: #fff; background-color: #fff; background-size: cover; border-radius: 15px; padding-top: 65px; z-index: 2; text-decoration:none; box-shadow: var(--app-box-shadow); }
 .app-line .app-icons .icon span{ display:block; font-size:14px; font-weight: 400; color:var(--link-color); margin-top:5px;}
 .app-line .app-icons .icon-none { background: none; box-shadow: none; }
-.app-line .app-icons #cloud { background-image: url(/images/icons/icon_cloud_circle.png); }
-.app-line .app-icons #wiki{ background-image: url(/images/icons/icon_wiki.png); }
-.app-line .app-icons #wiki_white{ background-image: url(/images/icons/icon_wiki_white.png); background-color: #272b35; }
-.app-line .app-icons #nugabox2020 { background-image: url(/images/icons/icon_nugabox_2020.png); }
-.app-line .app-icons #portfolio { background-image: url(/images/icons/icon_portfolio.png); }
-.app-line .app-icons #github { background-image: url(/images/icons/icon_github.png); }
-.app-line .app-icons #velog { background-image: url(/images/icons/icon_velog.png); background-color: #26C898; }
-.app-line .app-icons #blog { background-image: url(/images/icons/icon_codenuga.png); }
-.app-line .app-icons #terminal { background-image: url(/images/icons/icon_terminal.png); background-color: #404040; }
-.app-line .app-icons #devlabs { background-image: url(/images/icons/icon_dev2.png);  }
-.app-line .app-icons #nuflix { background-image: url(/images/icons/icon_nuflix.png); background-color: #222222; }
-.app-line .app-icons #cyworld { background-image: url(/images/icons/icon_cyworld.png); }
-.app-line .app-icons #design { background-image: url(/images/icons/icon_design.png); background-color: #001e36; }
-.app-line .app-icons #soundcloud { background-image: url(/images/icons/icon_soundcloud-grad.png); }
-.app-line .app-icons #comin { background-image: url(/images/icons/icon_comin_logo_white.png); background-color: #B7363C; }
-.app-line .app-icons #siiru { background-image: url(/images/icons/icon_comin_logo_red.png); }
-.app-line .app-icons #apple { background-image: url(/images/icons/icon_apple.png); }
-.app-line .app-icons #bowling { background-image: url(/images/icons/icon_bowling2.png); }
+.app-line .app-icons #cloud { background-image: url(/assets/images/icons/icon_cloud_circle.png); }
+.app-line .app-icons #wiki{ background-image: url(/assets/images/icons/icon_wiki.png); }
+.app-line .app-icons #wiki_white{ background-image: url(/assets/images/icons/icon_wiki_white.png); background-color: #272b35; }
+.app-line .app-icons #nugabox2020 { background-image: url(/assets/images/icons/icon_nugabox_2020.png); }
+.app-line .app-icons #portfolio { background-image: url(/assets/images/icons/icon_portfolio.png); }
+.app-line .app-icons #github { background-image: url(/assets/images/icons/icon_github.png); }
+.app-line .app-icons #velog { background-image: url(/assets/images/icons/icon_velog.png); background-color: #26C898; }
+.app-line .app-icons #blog { background-image: url(/assets/images/icons/icon_codenuga.png); }
+.app-line .app-icons #terminal { background-image: url(/assets/images/icons/icon_terminal.png); background-color: #404040; }
+.app-line .app-icons #devlabs { background-image: url(/assets/images/icons/icon_dev2.png);  }
+.app-line .app-icons #nuflix { background-image: url(/assets/images/icons/icon_nuflix.png); background-color: #222222; }
+.app-line .app-icons #cyworld { background-image: url(/assets/images/icons/icon_cyworld.png); }
+.app-line .app-icons #design { background-image: url(/assets/images/icons/icon_design.png); background-color: #001e36; }
+.app-line .app-icons #soundcloud { background-image: url(/assets/images/icons/icon_soundcloud-grad.png); }
+.app-line .app-icons #comin { background-image: url(/assets/images/icons/icon_comin_logo_white.png); background-color: #B7363C; }
+.app-line .app-icons #siiru { background-image: url(/assets/images/icons/icon_comin_logo_red.png); }
+.app-line .app-icons #apple { background-image: url(/assets/images/icons/icon_apple.png); }
+.app-line .app-icons #bowling { background-image: url(/assets/images/icons/icon_bowling2.png); }
 .app-line .app-icons #soundcloud span{ font-size:13px; letter-spacing: -0.8px; }
-.app-line .app-icons #plex { background-image: url(/images/icons/icon_plex2.png); background-color: #282828; }
-.app-line .app-icons #nugabox2021 { background-image: url(/images/icons/icon_nugabox_2021.png); }
-.app-line .app-icons #tools { background-image: url(/images/icons/icon_nugabox_tools_light.png); background-color: #272b35; }
-.app-line .app-icons #devtools { background-image: url(/images/icons/icon_nugabox_tools_dev_light.png); background-color: #272b35; }
-.app-line .app-icons #devlog { background-image: url(/images/icons/icon_devlog.png); background-color: #272b35; }
-.app-line .app-icons #kakao { background-image: url(/images/icons/icon_kakao.png) }
-.app-line .app-icons #kakaotalk { background-image: url(/images/icons/icon_kakao_talk.png) }
-.app-line .app-icons #think { background-image: url(/images/icons/icon_think.png); background-color: #FDF8FE; }
-.app-line .app-icons #mark { background-image: url(/images/icons/icon_mark.png) }
-.app-line .app-icons #note { background-image: url(/images/icons/icon_nuganote_dark.png); background-color: #272b35; }
-.app-line .app-icons #naver { background-image: url(/images/icons/icon_naver.png) }
-.app-line .app-icons #clock { background-image: url(/images/icons/icon_clock.png); background-color: #272b35; }
-.app-line .app-icons #set { background-image: url(/images/icons/icon_set.png); background-color: #272b35; }
-.app-line .app-icons #developer { background-image: url(/images/icons/icon_developer.png)}
-.app-line .app-icons #love { background-image: url(/images/icons/icon_love.png)}
-.app-line .app-icons #ha { background-image: url(/images/icons/icon_ha.png)}
-.app-line .app-icons #tesla { background-image: url(/images/icons/icon_tesla.png); background-color: #e31937; }
-.app-line .app-icons #cmdcenter { background-image: url(/images/icons/icon_cmdcenter.png);}
-.app-line .app-icons #gitlab { background-image: url(/images/icons/icon_gitlab.png);}
-.app-line .app-icons #gitlab_black { background-image: url(/images/icons/icon_gitlab_black.png);}
-.app-line .app-icons #cyworld { background-image: url(/images/icons/icon_cyworld.png);}
-.app-line .app-icons #support { background-image: url(/images/icons/icon_support.png);}
-.app-line .app-icons #marrifin { background-image: url(/images/icons/icon_marrifin.png);}
-.app-line .app-icons #trip { background-image: url(/images/icons/icon_trip.png);}
+.app-line .app-icons #plex { background-image: url(/assets/images/icons/icon_plex2.png); background-color: #282828; }
+.app-line .app-icons #nugabox2021 { background-image: url(/assets/images/icons/icon_nugabox_2021.png); }
+.app-line .app-icons #tools { background-image: url(/assets/images/icons/icon_nugabox_tools_light.png); background-color: #272b35; }
+.app-line .app-icons #devtools { background-image: url(/assets/images/icons/icon_nugabox_tools_dev_light.png); background-color: #272b35; }
+.app-line .app-icons #devlog { background-image: url(/assets/images/icons/icon_devlog.png); background-color: #272b35; }
+.app-line .app-icons #kakao { background-image: url(/assets/images/icons/icon_kakao.png) }
+.app-line .app-icons #kakaotalk { background-image: url(/assets/images/icons/icon_kakao_talk.png) }
+.app-line .app-icons #think { background-image: url(/assets/images/icons/icon_think.png); background-color: #FDF8FE; }
+.app-line .app-icons #mark { background-image: url(/assets/images/icons/icon_mark.png) }
+.app-line .app-icons #note { background-image: url(/assets/images/icons/icon_nuganote_dark.png); background-color: #272b35; }
+.app-line .app-icons #naver { background-image: url(/assets/images/icons/icon_naver.png) }
+.app-line .app-icons #clock { background-image: url(/assets/images/icons/icon_clock.png); background-color: #272b35; }
+.app-line .app-icons #set { background-image: url(/assets/images/icons/icon_set.png); background-color: #272b35; }
+.app-line .app-icons #developer { background-image: url(/assets/images/icons/icon_developer.png)}
+.app-line .app-icons #love { background-image: url(/assets/images/icons/icon_love.png)}
+.app-line .app-icons #ha { background-image: url(/assets/images/icons/icon_ha.png)}
+.app-line .app-icons #tesla { background-image: url(/assets/images/icons/icon_tesla.png); background-color: #e31937; }
+.app-line .app-icons #cmdcenter { background-image: url(/assets/images/icons/icon_cmdcenter.png);}
+.app-line .app-icons #gitlab { background-image: url(/assets/images/icons/icon_gitlab.png);}
+.app-line .app-icons #gitlab_black { background-image: url(/assets/images/icons/icon_gitlab_black.png);}
+.app-line .app-icons #cyworld { background-image: url(/assets/images/icons/icon_cyworld.png);}
+.app-line .app-icons #support { background-image: url(/assets/images/icons/icon_support.png);}
+.app-line .app-icons #marrifin { background-image: url(/assets/images/icons/icon_marrifin.png);}
+.app-line .app-icons #trip { background-image: url(/assets/images/icons/icon_trip.png);}
+.app-line .app-icons #backup { background-image: url(/assets/images/icons/icon_backup.png); background-color: #272b35;}
+.app-line .app-icons #tome { background-image: url(/assets/images/icons/icon_tome.png);}
 
 
 /** 인사말 텍스트 **/
@@ -246,10 +248,10 @@ html.dark .gradient-overlay {
 .sns-link a:hover {color: var(--sns-link-hover)}
 .sns-link a ion-icon {pointer-events: none}
 /*.sns-link a { display: block; margin: 8px 6px 0; color:#cccccc; background-size: contain; background-repeat: no-repeat; font-size:30px; z-index: 1;}*/
-/*.sns-link #email { -webkit-filter: var(--webkit-filter-email); background-image: url(/images/icons/email.png); width: 30px; height: 30px;  }*/
-/*.sns-link #youtube { -webkit-filter: var(--webkit-filter-youtube); background-image: url(/images/icons/youtube.png); width: 33px; height: 33px; }*/
-/*.sns-link #instagram { -webkit-filter: var(--webkit-filter-instagram); background-image: url(/images/icons/instagram.png); width: 28px; height: 28px; margin-top:10px; }*/
-/*.sns-link #memory { -webkit-filter: var(--webkit-filter-memory); background-image: url(/images/icons/yellow_ribbon.png); width: 30px; height: 30px;  margin-left: 10px; margin-right:0;}*/
+/*.sns-link #email { -webkit-filter: var(--webkit-filter-email); background-image: url(/assets/images/icons/email.png); width: 30px; height: 30px;  }*/
+/*.sns-link #youtube { -webkit-filter: var(--webkit-filter-youtube); background-image: url(/assets/images/icons/youtube.png); width: 33px; height: 33px; }*/
+/*.sns-link #instagram { -webkit-filter: var(--webkit-filter-instagram); background-image: url(/assets/images/icons/instagram.png); width: 28px; height: 28px; margin-top:10px; }*/
+/*.sns-link #memory { -webkit-filter: var(--webkit-filter-memory); background-image: url(/assets/images/icons/yellow_ribbon.png); width: 30px; height: 30px;  margin-left: 10px; margin-right:0;}*/
 /*.sns-link #email:hover, #youtube:hover, #instagram:hover, #memory:hover{ -webkit-filter: grayscale(0%); filter: none;}*/
 /*.sns-link #email:hover{ background:linear-gradient(315deg, #2a2a72 0%, #009ffd 74%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }*/
 /*.sns-link #youtube:hover{ background:linear-gradient(147deg, #f71735 0%, #db3445 74%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }*/

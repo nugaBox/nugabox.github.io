@@ -14,12 +14,7 @@
 </p>
 
 ## 로컬에서 실행
-
-로컬에서 `index.html`을 더블클릭(`file://`)으로 열면 `/images/...` 같은 루트 경로가 깨질 수 있습니다. 배포 환경과 동일하게 보려면 로컬 HTTP 서버로 실행하세요.
-
 ```bash
-cd /Users/ngjang/Development.localized/Workspaces/nugabox-labs/home
-python3 -m http.server 8080
+python3 -m http.server 1000
 ```
 
-그 다음 브라우저에서 `http://localhost:8080/` 로 접속하면 됩니다.

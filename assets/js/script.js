@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // snow.js 스크립트 실행
       if (!document.getElementById('embedim--snow')) {
         var embedimSnow = document.createElement('script');
-        embedimSnow.src = '/js/snow.js';
+        embedimSnow.src = '/assets/js/snow.js';
         document.body.appendChild(embedimSnow);
       }
     },
