@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta property="og:image" content="images/miniroom6.png">
+  <meta property="og:image" content="https://nugabox.com/cyworld/images/meta_miniroom6.png">
+  <meta property="og:url" content="https://nugabox.com/cyworld">
   <meta property="og:title" content="누가의 미니홈피 😆😆">
   <meta property="og:type" content="website">
   <meta property="og:description" content="싸이월드 프로젝트 by NUGABOX">
@@ -13,13 +14,13 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <div style="width:100%; max-width:900px; margin:auto;">
+<body class="cyworld-page">
+    <div class="cyworld-layout">
         <div class="outer-box border-left-box" style="width: 27%; padding: 20px 0px 20px 20px">
         <div class="inner-box" style="padding: 10px 5px 10px 10px;">
             <div class="content-box-header" style="justify-content: center">
-            <span class="small-text">TODAY</span>&nbsp;<span id="today-count" style="color: red">0</span>
-            &nbsp;&nbsp;|&nbsp;&nbsp;<span class="small-text">TOTAL</span>&nbsp;824
+            <span class="small-text">TODAY</span>&nbsp;<span id="today-count" style="color: red">1</span>
+            &nbsp;&nbsp;|&nbsp;&nbsp;<span class="small-text">TOTAL</span>&nbsp;<span id="total-count">824</span>
             </div>
             <div class="content-box" style="padding: 20px">
             <img style="width: 100%" src="images/profile.JPG"></img>
@@ -30,7 +31,13 @@
             </div>
             <hr>
             <b class="color-blue">장누가</b><span style="color: #b3b3b3; font-size: 12px;">&nbsp;(<i class="fa fa-mars-stroke-v"></i>)</span>
-            <div style="margin-top: 15px;"><select style="width: 100%"><option>파도타기</option></select></div>
+            <div style="margin-top: 15px;">
+              <select id="wave-select" style="width: 100%">
+                <option value="">파도타기</option>
+                <option value="https://www.instagram.com/nugabox/">누가(@nugabox)</option>
+                <option value="https://www.instagram.com/la.song2/">송이(@la.song2)</option>
+              </select>
+            </div>
             </div>
         </div>
         </div>
@@ -38,7 +45,7 @@
         <div class="inner-box" style="padding: 10px 10px 10px 5px;">
             <div class="content-box-header">
             <h1 style="margin:0px; font-size: 1.3em; font-weight: 550;" class="color-blue">&nbsp;&nbsp;누가의 미니홈피 😆😆</h1>
-            <span style="font-size: 12px;">https://nugabox.io/cyworld</span>
+            <span id="cyworld-url" style="font-size: 12px;"></span>
             </div>
             <div class="content-box" style="box-shadow: 5px 5px 20px -10px grey; padding: 10px 20px;">
             <div style="display: flex; font-size: 14px;">
@@ -52,25 +59,25 @@
                 <hr class="dashed">
                 <div class="row">
                     <div class="col">
-                    &nbsp;다이어리&nbsp;&nbsp;<span class="board-count">0/0</span>
+                    &nbsp;다이어리&nbsp;&nbsp;<span class="board-count">1/37</span>
                     </div>
                     <div class="col">
-                    &nbsp;사진첩&nbsp;&nbsp;<span class="board-count">0/0</span>
-                    </div>
-                </div>
-                <hr class="dashed">
-                <div class="row">
-                    <div class="col">
-                    &nbsp;게시판&nbsp;&nbsp;<span class="board-count">0/0</span>
-                    </div>
-                    <div class="col">
-                    &nbsp;동영상&nbsp;&nbsp;<span class="board-count">0/0</span>
+                    &nbsp;사진첩&nbsp;&nbsp;<span class="board-count">25/99</span>
                     </div>
                 </div>
                 <hr class="dashed">
                 <div class="row">
                     <div class="col">
-                    &nbsp;방명록&nbsp;&nbsp;<span class="board-count">0/0</span>
+                    &nbsp;게시판&nbsp;&nbsp;<span class="board-count">3/13</span>
+                    </div>
+                    <div class="col">
+                    &nbsp;동영상&nbsp;&nbsp;<span class="board-count">2/5</span>
+                    </div>
+                </div>
+                <hr class="dashed">
+                <div class="row">
+                    <div class="col">
+                    &nbsp;방명록&nbsp;&nbsp;<span class="board-count">74/125</span>
                     </div>
                 </div>
                 </div>
@@ -88,11 +95,15 @@
     </div>
     <script>
       (function () {
-        const el = document.getElementById('today-count');
-        if (!el) return;
+        const todayEl = document.getElementById('today-count');
+        const totalEl = document.getElementById('total-count');
+        if (!todayEl || !totalEl) return;
 
         const KEY_DATE = 'cyworld_today_date';
-        const KEY_COUNT = 'cyworld_today_count';
+        const KEY_TODAY = 'cyworld_today_count';
+        const KEY_TOTAL = 'cyworld_total_count';
+        const DEFAULT_TODAY = 1;
+        const DEFAULT_TOTAL = 824;
 
         const now = new Date();
         const today = [
@@ -102,17 +113,27 @@
         ].join('-');
 
         const savedDate = localStorage.getItem(KEY_DATE);
-        let count = Number(localStorage.getItem(KEY_COUNT) || '0');
+        let todayCount = Number(localStorage.getItem(KEY_TODAY) || '0');
+        let totalCount = localStorage.getItem(KEY_TOTAL);
 
         if (savedDate !== today) {
-          count = 1;
+          todayCount = DEFAULT_TODAY;
           localStorage.setItem(KEY_DATE, today);
         } else {
-          count = count + 1;
+          todayCount = todayCount + 1;
         }
 
-        localStorage.setItem(KEY_COUNT, String(count));
-        el.textContent = String(count);
+        if (totalCount === null) {
+          totalCount = DEFAULT_TOTAL;
+        } else {
+          totalCount = Number(totalCount) + 1;
+        }
+
+        localStorage.setItem(KEY_TODAY, String(todayCount));
+        localStorage.setItem(KEY_TOTAL, String(totalCount));
+
+        todayEl.textContent = String(todayCount);
+        totalEl.textContent = String(totalCount);
       })();
     </script>
     <script src="js/main.js"></script>

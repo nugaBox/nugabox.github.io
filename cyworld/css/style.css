@@ -112,3 +112,35 @@ body {
     border: 1px solid #2491b2;
     border-left: none;
   }
+
+.cyworld-layout {
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+}
+
+@media (max-width: 768px) {
+  html,
+  body.cyworld-page {
+    overflow-x: auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body.cyworld-page {
+    min-width: 960px;
+  }
+
+  .cyworld-layout {
+    width: 900px;
+    min-width: 900px;
+    max-width: none;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  .outer-box {
+    float: left;
+  }
+}
