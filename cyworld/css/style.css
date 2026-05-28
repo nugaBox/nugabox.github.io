@@ -147,13 +147,17 @@ body {
 }
 
 .miniroom-viewport {
-  width: 570px;
+  width: 100%;
+  max-width: 570px;
   height: 300px;
   border-radius: 6px;
   overflow: hidden;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  box-sizing: border-box;
+  display: block;
+  margin: 0 auto;
   cursor: grab;
   user-select: none;
   touch-action: none;
