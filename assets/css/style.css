@@ -181,6 +181,13 @@ html.dark .gradient-overlay {
 .app-line .app-icons .icon { display: block; height: 65px; width: 65px; margin: 0 10px; -webkit-background-composite: #fff; background-color: #fff; background-size: cover; border-radius: 15px; padding-top: 65px; z-index: 2; text-decoration:none; box-shadow: var(--app-box-shadow); }
 .app-line .app-icons .icon span{ display:block; font-size:14px; font-weight: 400; color:var(--link-color); margin-top:5px;}
 .app-line .app-icons .icon-none { background: none; box-shadow: none; }
+.app-line .app-icons .icon { position: relative; }
+.app-line .app-icons .icon .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; vertical-align: middle; }
+.app-line .app-icons .icon .status-dot.status-testing { background-color: #ff9500; }
+.app-line .app-icons .icon .status-dot.status-updated { background-color: #5ac8fa; }
+.app-line .app-icons .icon[data-tooltip] { overflow: visible; }
+.app-line .app-icons .icon[data-tooltip]::after { content: attr(data-tooltip); position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%) translateY(-6px); background-color: rgba(0, 0, 0, 0.8); color: #fff; font-size: 12px; padding: 4px 8px; border-radius: 6px; white-space: nowrap; opacity: 0; visibility: hidden; transition: opacity 0.2s ease-in-out; pointer-events: none; z-index: 10; }
+.app-line .app-icons .icon[data-tooltip]:hover::after { opacity: 1; visibility: visible; }
 .app-line .app-icons #cloud { background-image: url(/assets/images/icons/icon_cloud_circle.png); }
 .app-line .app-icons #wiki{ background-image: url(/assets/images/icons/icon_wiki.png); }
 .app-line .app-icons #wiki_white{ background-image: url(/assets/images/icons/icon_wiki_white.png); background-color: #272b35; }
