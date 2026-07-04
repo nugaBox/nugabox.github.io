@@ -1,0 +1,13 @@
+{
+    "name": "가벼운 네이버 검색",
+    "short_name": "검색",
+    "icons": [
+        {
+            "src": "android-chrome-144x144.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        }
+    ],
+    "display": "standalone",
+    "start_url": "/search"
+}
