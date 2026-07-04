@@ -9,5 +9,5 @@
         }
     ],
     "display": "standalone",
-    "start_url": "/search"
+    "start_url": "https://search.nugabox.com/"
 }

@@ -17,7 +17,7 @@ python3 -m http.server 1000
 
 | 경로 | URL | 설명 |
 |------|-----|------|
-| `search/` | https://nugabox.com/search | 가벼운 네이버 검색 포털 |
+| `search/` | https://search.nugabox.com (겸용: /search) | 가벼운 네이버 검색 포털 |
 | `tools/` | https://nugabox.com/tools | 장인의 도구 (일반/개발/메시지 유틸) |
 | `clock/` | https://nugabox.com/clock | 아날로그 시계 (라이트/다크 테마) |
 | `error/` | https://nugabox.com/error | Windows BSOD 스타일 오류 페이지 |
