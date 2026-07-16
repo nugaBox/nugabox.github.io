@@ -1,4 +1,4 @@
-name: Deploy home
+name: Deploy nugabox.github.io
 
 on:
   push:
@@ -6,15 +6,15 @@ on:
       - main
 
 concurrency:
-  group: home-deploy
+  group: nugabox.github.io-deploy
   cancel-in-progress: false
 
 env:
-  DEPLOY_DIR: /volume1/Develop/Sites/home
+  DEPLOY_DIR: /volume1/Develop/Sites/nugabox.github.io
 
 jobs:
   build:
-    runs-on: [self-hosted, linux, x64, nugacloud]
+    runs-on: [self-hosted, linux, x64, nugabox-github-io]
     outputs:
       head_sha: ${{ steps.prep.outputs.head_sha }}
       deploy_info_file: ${{ steps.prep.outputs.deploy_info_file }}
@@ -26,7 +26,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          DI="/tmp/home-deploy-${GITHUB_RUN_ID}.txt"
+          DI="/tmp/nugabox.github.io-deploy-${GITHUB_RUN_ID}.txt"
           echo "deploy_info_file=$DI" >> "$GITHUB_OUTPUT"
           echo "head_sha=${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
 
@@ -40,7 +40,7 @@ jobs:
 
   report-build-status:
     needs: build
-    runs-on: [self-hosted, linux, x64, nugacloud]
+    runs-on: [self-hosted, linux, x64, nugabox-github-io]
 
     steps:
       - name: Build status
@@ -51,7 +51,7 @@ jobs:
 
   deploy:
     needs: build
-    runs-on: [self-hosted, linux, x64, nugacloud]
+    runs-on: [self-hosted, linux, x64, nugabox-github-io]
 
     steps:
       - name: Deploy on Production Server
@@ -121,7 +121,7 @@ jobs:
           if len(info) > 3500:
               info = info[:3500] + "\n…(이하 생략)"
           lines = [
-              "✅ 배포 성공 (home)",
+              "✅ 배포 성공 (nugabox.github.io)",
               "",
               f"저장소: {os.environ['GH_REPO']}",
               f"브랜치: {os.environ['GH_REF']}",
@@ -172,7 +172,7 @@ jobs:
           if len(info) > 3500:
               info = info[:3500] + "\n…(이하 생략)"
           lines = [
-              "❌ 배포 실패 (home)",
+              "❌ 배포 실패 (nugabox.github.io)",
               "",
               f"저장소: {os.environ['GH_REPO']}",
               f"브랜치: {os.environ['GH_REF']}",
