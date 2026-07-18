@@ -209,7 +209,7 @@ html.dark .gradient-overlay {
 .app-line .app-icons #soundcloud span{ font-size:13px; letter-spacing: -0.8px; }
 .app-line .app-icons #plex { background-image: url(/assets/images/icons/icon_plex2.png); background-color: #282828; }
 .app-line .app-icons #nugabox2021 { background-image: url(/assets/images/icons/icon_nugabox_2021.png); }
-.app-line .app-icons #tools { background-image: url(/assets/images/icons/icon_nugabox_tools_light.png); background-color: #272b35; }
+.app-line .app-icons #tools { background-image: url(/assets/images/icons/icon_tools.png); background-color: #272b35; }
 .app-line .app-icons #devtools { background-image: url(/assets/images/icons/icon_nugabox_tools_dev_light.png); background-color: #272b35; }
 .app-line .app-icons #devlog { background-image: url(/assets/images/icons/icon_devlog.png); background-color: #272b35; }
 .app-line .app-icons #kakao { background-image: url(/assets/images/icons/icon_kakao.png) }
@@ -235,7 +235,7 @@ html.dark .gradient-overlay {
 .app-line .app-icons #trip { background-image: url(/assets/images/icons/icon_trip.png);}
 .app-line .app-icons #backup { background-image: url(/assets/images/icons/icon_backup.png); background-color: #272b35;}
 .app-line .app-icons #todaytome { background-image: url(/assets/images/icons/icon_todaytome.png); background-color: #272b35;}
-
+.app-line .app-icons #nugawiki { background-image: url(/assets/images/icons/icon_nugawiki.png);}
 
 /** 인사말 텍스트 **/
 .welcome { margin:40px 0 10px 0; }
