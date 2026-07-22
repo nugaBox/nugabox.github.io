@@ -19,8 +19,8 @@
         <div class="outer-box border-left-box" style="width: 27%; padding: 20px 0px 20px 20px">
         <div class="inner-box" style="padding: 10px 5px 10px 10px;">
             <div class="content-box-header" style="justify-content: center">
-            <span class="small-text">TODAY</span>&nbsp;<span id="today-count" style="color: red">1</span>
-            &nbsp;&nbsp;|&nbsp;&nbsp;<span class="small-text">TOTAL</span>&nbsp;<span id="total-count">824</span>
+            <span class="small-text">TODAY</span>&nbsp;<span id="today-count" style="color: red">&mdash;</span>
+            &nbsp;&nbsp;|&nbsp;&nbsp;<span class="small-text">TOTAL</span>&nbsp;<span id="total-count">&mdash;</span>
             </div>
             <div class="content-box" style="padding: 20px">
             <img style="width: 100%" src="images/profile.JPG"></img>
@@ -101,45 +101,46 @@
     </div>
     <script>
       (function () {
-        const todayEl = document.getElementById('today-count');
-        const totalEl = document.getElementById('total-count');
+        // nugawiki와 동일: Abacus (https://abacus.jasoncameron.dev/)
+        // https://nugabox.com/cyworld 기준으로 namespace/key 등록
+        var NAMESPACE = 'nugabox.com';
+        var KEY_RE = /^[A-Za-z0-9_\-.]{3,64}$/;
+        var todayEl = document.getElementById('today-count');
+        var totalEl = document.getElementById('total-count');
         if (!todayEl || !totalEl) return;
 
-        const KEY_DATE = 'cyworld_today_date';
-        const KEY_TODAY = 'cyworld_today_count';
-        const KEY_TOTAL = 'cyworld_total_count';
-        const DEFAULT_TODAY = 1;
-        const DEFAULT_TOTAL = 824;
-
-        const now = new Date();
-        const today = [
-          now.getFullYear(),
-          String(now.getMonth() + 1).padStart(2, '0'),
-          String(now.getDate()).padStart(2, '0'),
-        ].join('-');
-
-        const savedDate = localStorage.getItem(KEY_DATE);
-        let todayCount = Number(localStorage.getItem(KEY_TODAY) || '0');
-        let totalCount = localStorage.getItem(KEY_TOTAL);
-
-        if (savedDate !== today) {
-          todayCount = DEFAULT_TODAY;
-          localStorage.setItem(KEY_DATE, today);
-        } else {
-          todayCount = todayCount + 1;
+        function formatCount(n) {
+          var num = Number(n);
+          if (!isFinite(num)) return '-';
+          return Math.floor(num).toLocaleString('en-US');
         }
 
-        if (totalCount === null) {
-          totalCount = DEFAULT_TOTAL;
-        } else {
-          totalCount = Number(totalCount) + 1;
+        function hit(key, el) {
+          if (!el || !KEY_RE.test(key)) return;
+          var url = 'https://abacus.jasoncameron.dev/hit/'
+            + encodeURIComponent(NAMESPACE) + '/'
+            + encodeURIComponent(key);
+          fetch(url)
+            .then(function (res) {
+              if (!res.ok) throw new Error('abacus ' + res.status);
+              return res.json();
+            })
+            .then(function (data) {
+              el.textContent = formatCount(data.value);
+            })
+            .catch(function () {
+              el.textContent = '-';
+            });
         }
 
-        localStorage.setItem(KEY_TODAY, String(todayCount));
-        localStorage.setItem(KEY_TOTAL, String(totalCount));
+        function pad(n) {
+          return n < 10 ? '0' + n : String(n);
+        }
 
-        todayEl.textContent = String(todayCount);
-        totalEl.textContent = String(totalCount);
+        var now = new Date();
+        var todayKey = 'cyworld-' + now.getFullYear() + '-' + pad(now.getMonth() + 1) + '-' + pad(now.getDate());
+        hit('cyworld', totalEl);
+        hit(todayKey, todayEl);
       })();
     </script>
     <script src="js/main.js"></script>

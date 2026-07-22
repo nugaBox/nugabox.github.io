@@ -25,10 +25,13 @@
 <body>
   <div class="row top-bar">
     <div class="col-6 icon-toggle-btn">
-      <a class="sakura-toggle hover-ani" style="display: none;">🌸</a>
-      <a class="leaf-toggle hover-ani" style="display: none;">🍃</a>
-      <a class="fallen-toggle hover-ani" style="display: none;">🍁</a>
-      <a class="snow-toggle hover-ani" style="display: none;">❄️</a>
+      <div class="effect-toggle-wrapper">
+        <button type="button" class="effect-toggle-btn hover-ani" id="effect-toggle" aria-label="계절 효과 토글">🍃</button>
+        <button type="button" class="effect-menu-btn" id="effect-menu-btn" aria-label="효과 선택" aria-expanded="false" aria-haspopup="true">
+          <span class="effect-menu-caret"></span>
+        </button>
+        <div class="effect-dropdown" id="effect-dropdown" role="menu"></div>
+      </div>
     </div>
     <div class="col-6 text-right">
       <div class="theme-toggle-wrapper">
@@ -54,38 +57,38 @@
     </div>
     <div class="app-line">
       <div class="app-icons">
-        <a class="icon hover-ani" id="cloud" href="https://cloud.nugabox.com" target="_blank"><span>클라우드</span></a>
         <a class="icon hover-ani" id="github" href="https://github.com/nugaBox" target="_blank"><span>GitHub</span></a>
-        <a class="icon hover-ani" id="apple" href="https://apps.apple.com/kr/developer/nuga-jang/id1896473481" target="_blank"><span>AppStore</span></a>
         <a class="icon hover-ani" id="portfolio" href="https://portfolio.nugabox.com" target="_blank"><span>포트폴리오</span></a>
+        <a class="icon hover-ani" id="apple" href="https://apps.apple.com/kr/developer/nuga-jang/id1896473481" target="_blank"><span>App 개발</span></a>
+        <a class="icon hover-ani" id="cloud" href="https://cloud.nugabox.com" target="_blank"><span>클라우드</span></a>
       </div>
       <div class="app-icons">
+        <a class="icon hover-ani" id="nugabox_labs" href="https://github.com/nugabox-labs" target="_blank" data-tooltip="업데이트됨"><span><i class="status-dot status-updated"></i>Labs</span></a>
+        <a class="icon hover-ani" id="tools" href="https://nugabox.com/tools" target="_blank"><span>Tools</span></a>
+        <a class="icon hover-ani" id="backup" href="https://backup.nugabox.com" target="_blank"><span>Backup</span></a>
         <a class="icon hover-ani" id="note" href="https://heisnugaaaa.tistory.com" target="_blank"><span>생각 노트</span></a>
-        <a class="icon hover-ani" id="tools" href="/tools" target="_blank"><span>Tools</span></a>
-        <a class="icon hover-ani" id="backup" href="https://backup.nugabox.com" target="_blank"><span>백업 시스템</span></a>
-        <a class="icon hover-ani" id="support" href="https://support.nugabox.com" target="_blank"><span>고객지원</span></a>
       </div>
       <div class="app-icons">
-        <a class="icon hover-ani" id="design" href="https://design.nugabox.com" target="_blank"><span>디자인</span></a>
         <a class="icon hover-ani" id="nugawiki" href="https://wiki.nugabox.com" target="_blank" data-tooltip="업데이트됨"><span><i class="status-dot status-updated"></i>NUGAWIKI</span></a>
-        <a class="icon hover-ani" id="plex" href="https://plex.nugabox.com" target="_blank"><span>누플렉스</span></a>
-        <a class="icon hover-ani" id="bowling" href="/bowling" target="_blank"><span>볼링장</span></a>
+        <a class="icon hover-ani" id="design" href="https://design.nugabox.com" target="_blank"><span>디자인</span></a>
+        <a class="icon hover-ani" id="plex" href="https://plex.nugabox.com" target="_blank"><span>NUPLEX</span></a>
+        <a class="icon hover-ani" id="support" href="https://support.nugabox.com" target="_blank"><span>고객지원</span></a>
       </div>
       <div class="app-icons">
         <a class="icon hover-ani" id="naver" href="https://search.nugabox.com" target="_blank"><span>가벼운 검색</span></a>
         <a class="icon hover-ani" id="ha" href="https://ha.nugabox.com" target="_blank"><span>HOME</span></a>
-        <a class="icon hover-ani" id="cmdcenter" href="https://framework.comin.com" target="_blank"><span>커맨드센터</span></a>
         <a class="icon hover-ani" id="tesla" href="https://tesla.nugabox.com" target="_blank" data-tooltip="업데이트됨"><span><i class="status-dot status-updated"></i>Tesla FS</span></a>
+        <a class="icon hover-ani" id="bowling" href="https://nugabox.com/bowling" target="_blank"><span>볼링장</span></a>
       </div>
       <div class="app-icons">
         <a class="icon hover-ani" id="nugadesk" href="https://work.nugabox.com" target="_blank" data-tooltip="업데이트됨"><span><i class="status-dot status-updated"></i>NUGADESK</span></a>
-        <a class="icon hover-ani" id="cyworld" href="/cyworld" target="_blank"><span>Cyworld</span></a>
         <a class="icon hover-ani" id="love" href="https://love.nugabox.com" target="_blank"><span>LOVE</span></a>
+        <a class="icon hover-ani" id="cyworld" href="https://nugabox.com/cyworld" target="_blank"><span>미니홈피</span></a>
         <a class="icon hover-ani" id="trip" href="https://travel.nugabox.com" target="_blank"><span>트래블로그</span></a>
       </div>
       <div class="app-icons">
         <a class="icon hover-ani" id="todaytome" href="https://todaytome.nugabox.com" target="_blank" data-tooltip="업데이트됨"><span><i class="status-dot status-updated"></i>오늘 나에게</span></a>
-        <a class="icon hover-ani" id="marrifin" href="https://marrifin.nugabox.com" target="_blank" data-tooltip="테스트 진행중"><span><i class="status-dot status-testing"></i>메리핀</span></a>
+        <a class="icon hover-ani" id="marrifin" href="https://marrifin.nugabox.com" target="_blank" data-tooltip="배포 준비중"><span><i class="status-dot status-testing"></i>메리핀</span></a>
         <a class="icon icon-none"></a>
         <a class="icon icon-none"></a>
       </div>
@@ -99,13 +102,13 @@
       <p>made by <a class="insta-gradient" href="https://www.instagram.com/nugabox" target="_blank">@nugabox</a></p>
     </div>
     <div class="sns-link">
-      <a href="https://github.com/nugaBox" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Github"><ion-icon name="logo-octocat"></ion-icon></a>
+      <a href="https://github.com/nugaBox" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Github"><ion-icon name="logo-github"></ion-icon></a>
       <a href="mailto:root@nugabox.com" target="_blank"data-bs-toggle="tooltip" data-bs-placement="bottom" title="Email"><ion-icon name="mail-outline"></ion-icon></a>
       <a href="https://www.instagram.com/nugabox" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Instagram"><ion-icon name="logo-instagram"></ion-icon></a>
       <a href="https://www.rocketpunch.com/@nugabox" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="RocketPunch"><ion-icon name="rocket-sharp"></ion-icon></a>
       <a href="https://www.linkedin.com/in/nugabox/" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Linkedin"><ion-icon name="logo-linkedin"></ion-icon></a>
       <a href="https://www.buymeacoffee.com/nugabox" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Buy Me a Coffee"><ion-icon name="cafe"></ion-icon></a>
-      <a href="https://campaign.naver.com/memory/" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Memory"><ion-icon name="heart"></ion-icon></a>
+      <a href="https://campaign.naver.com/memory/" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Memory"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ribbon-icon lucide-ribbon" aria-hidden="true"><path d="M12 11.22C11 9.997 10 9 10 8a2 2 0 0 1 4 0c0 1-.998 2.002-2.01 3.22"/><path d="m12 18 2.57-3.5"/><path d="M6.243 9.016a7 7 0 0 1 11.507-.009"/><path d="M9.35 14.53 12 11.22"/><path d="M9.35 14.53C7.728 12.246 6 10.221 6 7a6 5 0 0 1 12 0c-.005 3.22-1.778 5.235-3.43 7.5l3.557 4.527a1 1 0 0 1-.203 1.43l-1.894 1.36a1 1 0 0 1-1.384-.215L12 18l-2.679 3.593a1 1 0 0 1-1.39.213l-1.865-1.353a1 1 0 0 1-.203-1.422z"/></svg></a>
 <!--      <a id="email" href="mailto:root@nugabox.com" target="_blank"data-bs-toggle="tooltip" data-bs-placement="bottom" title="Email"></a>-->
 <!--      <a id="youtube" href="https://www.youtube.com/channel/UClyiG3nsS6r1Z36jUDUADDw" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Youtube"></a>-->
 <!--      <a id="instagram" href="https://www.instagram.com/codenuga__" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Instagram"></a>-->
@@ -122,6 +125,7 @@
   <script src="/assets/js/bootstrap.min.js" type="text/javascript" crossorigin="anonymous"></script>
   <!-- <script src="/assets/js/jquery-sakura.js" type="text/javascript" crossorigin="anonymous"></script> -->
   <script src="/assets/js/sakura.min.js" type="text/javascript" crossorigin="anonymous"></script>
+  <script src="/assets/js/snowfall.jquery.js" type="text/javascript" crossorigin="anonymous"></script>
   <script src="/assets/js/hello.js" type="text/javascript" crossorigin="anonymous"></script>
   <script src="/assets/js/script.js" type="text/javascript" crossorigin="anonymous"></script>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

@@ -5,12 +5,13 @@ document.ondragstart = function() { return false; }
 
 document.addEventListener('DOMContentLoaded', () => {
   // 월별 효과 설정
+  // 12~2월: 눈 / 3~4월: 벚꽃 / 5~8월: 나뭇잎 / 9~11월: 낙엽
   const seasonalEffects = {
     1: 'snow',
-    2: 'sakura',
+    2: 'snow',
     3: 'sakura',
     4: 'sakura',
-    5: 'sakura',
+    5: 'leaf',
     6: 'leaf',
     7: 'leaf',
     8: 'leaf',
@@ -20,23 +21,38 @@ document.addEventListener('DOMContentLoaded', () => {
     12: 'snow'
   };
 
-  // 현재 월 가져오기
+  const effectMeta = {
+    sakura: { icon: '🌸', label: '벚꽃' },
+    leaf: { icon: '🍃', label: '나뭇잎' },
+    fallen: { icon: '🍂', label: '낙엽' },
+    snow: { icon: '❄️', label: '눈' }
+  };
+
+  const effectOrder = ['sakura', 'leaf', 'fallen', 'snow'];
+
   const currentMonth = new Date().getMonth() + 1;
-  const currentEffect = seasonalEffects[currentMonth];
-
-  // 모든 효과 토글 버튼 숨기기
-  const allToggles = document.querySelectorAll('.sakura-toggle, .snow-toggle, .leaf-toggle, .fallen-toggle');
-  allToggles.forEach(toggle => toggle.style.display = 'none');
-
-  // 현재 월에 해당하는 토글 버튼만 표시
-  const currentToggle = document.querySelector(`.${currentEffect}-toggle`);
-  if (currentToggle) {
-    currentToggle.style.display = 'block';
-  }
-
-  // 효과 인스턴스 저장
+  let activeEffect = seasonalEffects[currentMonth];
   let currentInstance = null;
   let isEffectOn = false;
+
+  const toggleBtn = document.getElementById('effect-toggle');
+  const menuBtn = document.getElementById('effect-menu-btn');
+  const dropdown = document.getElementById('effect-dropdown');
+  const wrapper = document.querySelector('.effect-toggle-wrapper');
+
+  function updateToggleIcon() {
+    if (!toggleBtn) return;
+    toggleBtn.textContent = effectMeta[activeEffect].icon;
+    toggleBtn.setAttribute('aria-label', `${effectMeta[activeEffect].label} 효과 토글`);
+    toggleBtn.style.opacity = isEffectOn ? '1' : '0.45';
+  }
+
+  function updateDropdownActive() {
+    if (!dropdown) return;
+    dropdown.querySelectorAll('[data-effect]').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.effect === activeEffect);
+    });
+  }
 
   // 효과 초기화 함수들
   const effectInitializers = {
@@ -55,29 +71,24 @@ document.addEventListener('DOMContentLoaded', () => {
         fallSpeed: 1
       });
 
-      // 주기적으로 화면 하단의 벚꽃 요소들을 제거
       const cleanupInterval = setInterval(() => {
         const sakuraElements = document.querySelectorAll('.sakura');
         sakuraElements.forEach(el => {
           const rect = el.getBoundingClientRect();
           const windowHeight = window.innerHeight;
-          if (rect.top > windowHeight * 0.9) {  // 80%로 변경
-            // fadeout 애니메이션 추가
+          if (rect.top > windowHeight * 0.9) {
             el.style.transition = 'opacity 1s ease-out';
             el.style.opacity = '0';
-            // 애니메이션 완료 후 요소 제거
             setTimeout(() => {
               el.remove();
             }, 1000);
           }
         });
-      }, 100);  // 더 자주 체크하도록 간격 줄임
+      }, 100);
 
-      // cleanup 인터벌 저장
       currentInstance.cleanupInterval = cleanupInterval;
     },
     snow: function() {
-      // snow.js 스크립트 실행
       if (!document.getElementById('embedim--snow')) {
         var embedimSnow = document.createElement('script');
         embedimSnow.src = '/assets/js/snow.js';
@@ -85,12 +96,35 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     },
     leaf: function() {
-      // 나뭇잎 효과 구현 예정
-      console.log('Leaf effect not implemented yet');
+      // lazy-minjoo 사이트와 동일한 snowfall + 나뭇잎 이미지
+      $(document).snowfall({
+        image: '/assets/images/leaf.png',
+        minSize: 15,
+        maxSize: 21,
+        minSpeed: 1,
+        maxSpeed: 2.5,
+        flakeCount: 14,
+        flakeIndex: 50
+      });
+      document.body.classList.add('leaf-falling');
     },
     fallen: function() {
-      // 낙엽 효과 구현 예정
-      console.log('Fallen leaves effect not implemented yet');
+      // 같은 나뭇잎 모양 + 노랑~주황 계열 색 섞기
+      $(document).snowfall({
+        images: [
+          '/assets/images/fallen-leaf-yellow.png',
+          '/assets/images/fallen-leaf-gold.png',
+          '/assets/images/fallen-leaf-orange.png',
+          '/assets/images/fallen-leaf-amber.png'
+        ],
+        minSize: 15,
+        maxSize: 21,
+        minSpeed: 1,
+        maxSpeed: 2.5,
+        flakeCount: 14,
+        flakeIndex: 50
+      });
+      document.body.classList.add('fallen-falling');
     }
   };
 
@@ -98,7 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const effectRemovers = {
     sakura: function() {
       if (currentInstance) {
-        // cleanup 인터벌 정지
         if (currentInstance.cleanupInterval) {
           clearInterval(currentInstance.cleanupInterval);
         }
@@ -121,34 +154,95 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     },
     leaf: function() {
-      console.log('Leaf effect removal not implemented yet');
+      $(document).snowfall('clear');
+      document.body.classList.remove('leaf-falling');
     },
     fallen: function() {
-      console.log('Fallen leaves effect removal not implemented yet');
+      $(document).snowfall('clear');
+      document.body.classList.remove('fallen-falling');
     }
   };
 
-  // 토글 버튼 클릭 이벤트
-  if (currentToggle) {
-    currentToggle.addEventListener('click', () => {
+  function stopEffect() {
+    if (!isEffectOn) return;
+    effectRemovers[activeEffect]();
+    isEffectOn = false;
+    updateToggleIcon();
+  }
+
+  function startEffect() {
+    effectInitializers[activeEffect]();
+    isEffectOn = true;
+    updateToggleIcon();
+  }
+
+  function switchEffect(nextEffect) {
+    if (!effectMeta[nextEffect]) return;
+    if (isEffectOn) {
+      effectRemovers[activeEffect]();
+      isEffectOn = false;
+    }
+    activeEffect = nextEffect;
+    updateDropdownActive();
+    startEffect();
+  }
+
+  function closeDropdown() {
+    if (!dropdown || !menuBtn) return;
+    dropdown.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+  }
+
+  function toggleDropdown() {
+    if (!dropdown || !menuBtn) return;
+    const willOpen = !dropdown.classList.contains('open');
+    dropdown.classList.toggle('open', willOpen);
+    menuBtn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+  }
+
+  // 드롭다운 메뉴 항목 생성
+  if (dropdown) {
+    dropdown.innerHTML = effectOrder.map(key => {
+      const meta = effectMeta[key];
+      return `<button type="button" class="effect-option" data-effect="${key}" aria-label="${meta.label}" title="${meta.label}">
+        <span class="effect-option-icon">${meta.icon}</span>
+      </button>`;
+    }).join('');
+
+    dropdown.addEventListener('click', (e) => {
+      const option = e.target.closest('[data-effect]');
+      if (!option) return;
+      switchEffect(option.dataset.effect);
+      closeDropdown();
+    });
+  }
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
       if (isEffectOn) {
-        // 효과 끄기
-        effectRemovers[currentEffect]();
-        currentToggle.style.opacity = '0.5';
-        isEffectOn = false;
+        stopEffect();
       } else {
-        // 효과 켜기
-        effectInitializers[currentEffect]();
-        currentToggle.style.opacity = '1';
-        isEffectOn = true;
+        startEffect();
       }
     });
-
-    // 초기 효과 시작
-    effectInitializers[currentEffect]();
-    currentToggle.style.opacity = '1';
-    isEffectOn = true;
   }
+
+  if (menuBtn) {
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleDropdown();
+    });
+  }
+
+  document.addEventListener('click', (e) => {
+    if (wrapper && !wrapper.contains(e.target)) {
+      closeDropdown();
+    }
+  });
+
+  // 초기 효과 시작
+  updateDropdownActive();
+  startEffect();
 
   const themeToggleBtns = document.querySelectorAll('.theme-toggle-btn');
   const slider = document.querySelector('.theme-toggle-slider');
@@ -179,14 +273,12 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('theme', theme);
   }
   
-  console.log('savedTheme', savedTheme);
-  console.log('currentEffect', currentEffect);
   // 초기 테마 설정
   if (savedTheme) {
     setTheme(savedTheme);
   } else {
     // 현재 월의 효과가 snow이면 dark 테마, 아니면 light 테마를 기본값으로
-    const defaultTheme = currentEffect === 'snow' ? 'dark' : 'light';
+    const defaultTheme = activeEffect === 'snow' ? 'dark' : 'light';
     setTheme(defaultTheme);
   }
   
