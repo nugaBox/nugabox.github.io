@@ -114,6 +114,16 @@
 <!--      <a id="instagram" href="https://www.instagram.com/codenuga__" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Instagram"></a>-->
 <!--      <a id="memory" href="https://campaign.naver.com/memory/" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Memory"></a>-->
     </div>
+    <div class="site-stats" aria-label="사이트 업데이트·방문 수">
+      <span class="stat-item">
+        <span class="stat-badge">Update</span>
+        <span class="stat-value">2026. 7. 24.</span>
+      </span>
+      <span class="stat-item">
+        <span class="stat-badge">Visit</span>
+        <span class="stat-value" id="visit-count">&mdash;</span>
+      </span>
+    </div>
     <footer>
       <p>ⓒ <script>document.write(new Date().getFullYear());</script> NUGABOX. All rights reserved.</p>
       <!-- <a href="#"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fnugabox.github.io&count_bg=%238E8E84&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Visit&edge_flat=false" alt="Visit"/></a> -->
@@ -130,5 +140,31 @@
   <script src="/assets/js/script.js" type="text/javascript" crossorigin="anonymous"></script>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script>
+    (function () {
+      // cyworld와 동일: Abacus (https://abacus.jasoncameron.dev/)
+      // namespace/key 고정 → nugabox.github.io / nugabox.com / nugabox.io 방문이 한 카운터로 합산됨
+      var NAMESPACE = 'nugabox.com';
+      var KEY = 'home';
+      var KEY_RE = /^[A-Za-z0-9_\-.]{3,64}$/;
+      var el = document.getElementById('visit-count');
+      if (!el || !KEY_RE.test(NAMESPACE) || !KEY_RE.test(KEY)) return;
+
+      fetch('https://abacus.jasoncameron.dev/hit/'
+        + encodeURIComponent(NAMESPACE) + '/'
+        + encodeURIComponent(KEY))
+        .then(function (res) {
+          if (!res.ok) throw new Error('abacus ' + res.status);
+          return res.json();
+        })
+        .then(function (data) {
+          var num = Number(data.value);
+          el.textContent = isFinite(num) ? Math.floor(num).toLocaleString('en-US') : '-';
+        })
+        .catch(function () {
+          el.textContent = '-';
+        });
+    })();
+  </script>
 </body>
 </html>

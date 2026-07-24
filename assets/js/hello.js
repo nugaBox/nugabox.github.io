@@ -1,16 +1,25 @@
 const logHello = () => {
-  console.log(
-    `%c환영합니다!%c
+  const ascii = [
+    '  _   _  _    _   _____            ____    ____  __   __',
+    ' | \\ | || |  | | / ____|    /\\    |  _ \\  / __ \\ \\ \\ / /',
+    ' |  \\| || |  | || |  __    /  \\   | |_) || |  | | \\ V /',
+    " | . ` || |  | || | |_ |  / /\\ \\  |  _ < | |  | |  > <",
+    ' | |\\  || |__| || |__| | / ____ \\ | |_) || |__| | / . \\',
+    ' |_| \\_| \\____/  \\_____|/_/    \\_\\|____/  \\____/ /_/ \\_\\',
+  ].join('\n');
 
-NUGABOX에 오신 것을 환영합니다.
-직접 개발한 도구 및 유용한 사이트입니다.
+  console.log(
+    `%c${ascii}%c
+
+made by Nuga Jang
+Welcome to NUGABOX!
 
 🤝 GitHub: https://github.com/nugaBox
-🔍 Portfolio: https://portfolio.nugabox.io
+🔍 Portfolio: https://portfolio.nugabox.com
 🚀 Email: ngjang.work@gmail.com
 
 `,
-    `padding-top: 0.5em; font-size: 2em; color: #676a6c;`,
+    'font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 11px; line-height: 1.15; color: #676a6c; white-space: pre;',
     'padding-bottom: 0.5em;'
   );
 };

@@ -58,6 +58,38 @@ body {
 body::-webkit-scrollbar { display:none; }
 h1 { margin:0; padding:0 }
 p { font-size:35px; color:#000000; font-weight:700; margin:0; padding:0; margin-bottom: 20px; }
+.site-stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin: 28px 0 0;
+  color: #ddd;
+  font-size: 0.78em;
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  line-height: 1.4;
+}
+.site-stats .stat-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.site-stats .stat-badge {
+  display: inline-block;
+  padding: 1px 5px;
+  border-radius: 2px;
+  background: #ddd;
+  color: var(--bg-color);
+  font-size: 0.85em;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.35;
+}
+.site-stats .stat-value {
+  color: #ddd;
+}
 footer {margin:10px 0 200px;}
 footer p {text-align:center; padding-bottom:20px; margin-bottom:0; color:#ddd; font-size: 0.9em; letter-spacing: -0.3px;font-weight: 400;}
 
