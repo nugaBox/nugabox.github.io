@@ -244,6 +244,24 @@ document.addEventListener('DOMContentLoaded', () => {
   updateDropdownActive();
   startEffect();
 
+  // .app-line 은 display:none 이라 토글 전까지 background-image 를 안 받음.
+  // 페이지 로드가 끝난 뒤 앱 아이콘을 미리 캐시해 토글 시 지연을 없앰.
+  function preloadAppIcons() {
+    document.querySelectorAll('.app-line a.icon[id]:not(.icon-none)').forEach(function (el) {
+      var bg = window.getComputedStyle(el).backgroundImage;
+      var match = bg && bg.match(/url\(["']?(.*?)["']?\)/);
+      if (!match || !match[1] || match[1] === 'none') return;
+      var img = new Image();
+      img.src = match[1];
+    });
+  }
+
+  if (document.readyState === 'complete') {
+    preloadAppIcons();
+  } else {
+    window.addEventListener('load', preloadAppIcons);
+  }
+
   const themeToggleBtns = document.querySelectorAll('.theme-toggle-btn');
   const slider = document.querySelector('.theme-toggle-slider');
   

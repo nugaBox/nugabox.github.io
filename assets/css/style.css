@@ -1,6 +1,5 @@
 @charset "UTF-8";
 /*@import url(https://fonts.googleapis.com/earlyaccess/notosanskr.css);*/
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&display=swap');
 /*
  * 2021.01.01 새해맞이 초안 작성
  * Designed by NUGA
@@ -42,7 +41,8 @@ html.dark {
 
 /** 폰트 **/
 @font-face {font-family: 'Pretendard'; font-weight: 45 920; font-style: normal; font-display: swap; src: local('Pretendard Variable'), url('../webfonts/PretendardVariable.woff2') format('woff2-variations')}
-@font-face {font-family: 'KoreanFrenchTypewriter'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2102-01@1.0/KoreanFrenchTypewriter.woff') format('woff'); font-weight: normal; font-style: normal}
+@font-face {font-family: 'Playfair Display'; font-style: normal; font-weight: 400; font-display: swap; src: url('../webfonts/PlayfairDisplay-Regular.woff2') format('woff2')}
+@font-face {font-family: 'KoreanFrenchTypewriter'; src: url('../webfonts/KoreanFrenchTypewriter.woff') format('woff'); font-weight: normal; font-style: normal; font-display: swap}
 
 /** 기본 요소 **/
 html,body { height:100%; width:100%; background: var(--bg-color); }
@@ -80,7 +80,7 @@ p { font-size:35px; color:#000000; font-weight:700; margin:0; padding:0; margin-
   display: inline-block;
   padding: 1px 5px;
   border-radius: 2px;
-  background: #ddd;
+  background: #ccc;
   color: var(--bg-color);
   font-size: 0.85em;
   font-weight: 600;
@@ -88,7 +88,7 @@ p { font-size:35px; color:#000000; font-weight:700; margin:0; padding:0; margin-
   line-height: 1.35;
 }
 .site-stats .stat-value {
-  color: #ddd;
+  color: #ccc;
 }
 footer {margin:10px 0 200px;}
 footer p {text-align:center; padding-bottom:20px; margin-bottom:0; color:#ddd; font-size: 0.9em; letter-spacing: -0.3px;font-weight: 400;}
